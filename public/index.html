@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FythhX - Web Based Editor</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Montserrat:wght@100..900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Oswald:wght@200..700&family=Raleway:wght@100..900&family=Nunito:wght@200..1000&display=swap" rel="stylesheet">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Lilita+One&family=Rubik+Glitch&family=Press+Start+2P&family=Sedgwick+Ave+Display&family=Creepster&family=Mochiy+Pop+P+One&family=Bebas+Neue&family=Comic+Neue:wght@700&family=Bangers&family=Permanent+Marker&family=Orbitron&family=Playfair+Display&family=Special+Elite&family=Teko&family=Nosifer&family=Dancing+Script&family=VT323&family=Graduate&family=Fredoka+One&display=swap');
+    
+    /* Font Art & Animations for Subtitles */
+    .font-art-neon {
+      color: #fff !important;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 40px #ff00de, 0 0 80px #ff00de !important;
+      font-family: 'Anton', sans-serif !important;
+      font-weight: 400 !important;
+    }
+    .font-art-yellow {
+      color: #ffeb3b !important;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 4px 4px 0 #000, 6px 6px 5px rgba(0,0,0,0.5) !important;
+      font-family: 'Lilita One', sans-serif !important;
+      font-weight: 400 !important;
+    }
+    .font-art-retro {
+      color: #4facfe !important;
+      text-shadow: 2px 2px 0 #00f2fe, 4px 4px 0 #000 !important;
+      font-family: 'Mochiy Pop P One', sans-serif !important;
+      font-weight: 400 !important;
+    }
+    .font-art-outline {
+      color: #ffffff !important;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 4px 4px 0 #000, 6px 6px 0 #000 !important;
+      font-family: 'Bebas Neue', sans-serif !important;
+      font-weight: 400 !important;
+      letter-spacing: 2px !important;
+    }
+    .font-art-glitch {
+      color: #fff !important;
+      text-shadow: 2px 0 0 #ff00c1, -2px 0 0 #00fff9 !important;
+      font-family: 'Rubik Glitch', sans-serif !important;
+    }
+    .font-art-pixel {
+      color: #fff !important;
+      text-shadow: 3px 3px 0 #000, 4px 4px 0 #000 !important;
+      font-family: 'Press Start 2P', cursive !important;
+      font-size: 0.8em !important;
+    }
+    .font-art-graffiti {
+      color: #fff !important;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 3px 3px 0 #e60000 !important;
+      font-family: 'Sedgwick Ave Display', cursive !important;
+    }
+    .font-art-halloween {
+      color: #ff0000 !important;
+      text-shadow: 0 0 10px #ff0000, 0 0 20px #8a0000 !important;
+      font-family: 'Creepster', cursive !important;
+    }
+    .font-art-bubblegum {
+      color: #ffb6c1 !important;
+      text-shadow: -2px -2px 0 #ff69b4, 2px -2px 0 #ff69b4, -2px 2px 0 #ff69b4, 2px 2px 0 #ff69b4 !important;
+      font-family: 'Comic Neue', cursive !important;
+      font-weight: 700 !important;
+    }
+    .font-art-cinematic {
+      color: #fff !important;
+      text-shadow: 0 4px 4px rgba(0,0,0,0.8) !important;
+      font-family: 'Montserrat', sans-serif !important;
+      font-weight: 300 !important;
+      letter-spacing: 8px !important;
+      text-transform: uppercase !important;
+    }
+    .font-art-impact {
+      color: #ff4500 !important;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 4px 0 #8b0000 !important;
+      font-family: 'Bangers', cursive !important;
+      letter-spacing: 2px !important;
+    }
+    .font-art-marker {
+      color: #000 !important;
+      text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff !important;
+      font-family: 'Permanent Marker', cursive !important;
+    }
+    .font-art-cyberpunk {
+      color: #0ff !important;
+      text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #000 !important;
+      font-family: 'Orbitron', sans-serif !important;
+      font-weight: 700 !important;
+    }
+    .font-art-elegant {
+      color: #ffd700 !important;
+      text-shadow: 1px 1px 2px #000, 0 0 10px rgba(255,215,0,0.5) !important;
+      font-family: 'Playfair Display', serif !important;
+      font-weight: 700 !important;
+      font-style: italic !important;
+    }
+    .font-art-typewriter {
+      color: #fff !important;
+      text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000 !important;
+      font-family: 'Special Elite', monospace !important;
+      opacity: 0.9 !important;
+    }
+    .font-art-mecha {
+      color: #fff !important;
+      text-shadow: -2px -2px 0 #ff0000, 2px -2px 0 #ff0000, -2px 2px 0 #ff0000, 2px 2px 0 #ff0000, 4px 4px 0 #8b0000 !important;
+      font-family: 'Teko', sans-serif !important;
+      font-weight: 600 !important;
+      letter-spacing: 2px !important;
+    }
+    .font-art-bloody {
+      color: #8b0000 !important;
+      text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 0 0 10px #ff0000 !important;
+      font-family: 'Nosifer', cursive !important;
+    }
+    .font-art-romantic {
+      color: #ff69b4 !important;
+      text-shadow: 1px 1px 2px #fff, 0 0 10px #ff1493 !important;
+      font-family: 'Dancing Script', cursive !important;
+      font-weight: 700 !important;
+    }
+    .font-art-terminal {
+      color: #39ff14 !important;
+      text-shadow: 0 0 5px #39ff14, 2px 2px 0 #000 !important;
+      font-family: 'VT323', monospace !important;
+    }
+    .font-art-varsity {
+      color: #fff !important;
+      text-shadow: -2px -2px 0 #00008b, 2px -2px 0 #00008b, -2px 2px 0 #00008b, 2px 2px 0 #00008b, 4px 4px 0 #000 !important;
+      font-family: 'Graduate', cursive !important;
+    }
+    .font-art-kids {
+      color: #00ffff !important;
+      text-shadow: -2px -2px 0 #ff00ff, 2px -2px 0 #ff00ff, -2px 2px 0 #ff00ff, 2px 2px 0 #ff00ff, 4px 4px 0 #000 !important;
+      font-family: 'Fredoka One', cursive !important;
+    }
+    
+    /* Animations */
+    @keyframes animFade {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @keyframes animPop {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      30% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+      50% { transform: translate(-50%, -50%) scale(1); }
+      80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    }
+    @keyframes animSlideUp {
+      0% { opacity: 0; transform: translate(-50%, calc(-50% + 30px)); }
+      30% { opacity: 1; transform: translate(-50%, -50%); }
+      80% { opacity: 1; transform: translate(-50%, -50%); }
+      100% { opacity: 0; transform: translate(-50%, calc(-50% - 20px)); }
+    }
+    @keyframes animSlideDown {
+      0% { opacity: 0; transform: translate(-50%, calc(-50% - 30px)); }
+      30% { opacity: 1; transform: translate(-50%, -50%); }
+      80% { opacity: 1; transform: translate(-50%, -50%); }
+      100% { opacity: 0; transform: translate(-50%, calc(-50% + 20px)); }
+    }
+    .anim-fade { animation: animFade 2s ease forwards; }
+    .anim-pop { animation: animPop 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    .anim-slideup { animation: animSlideUp 2s ease forwards; }
+    .anim-slidedown { animation: animSlideDown 2s ease forwards; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="timeline/timeline.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary": "#003640",
+                      "primary-container": "#1d4ed8",
+                      "on-primary": "#eff6ff",
+                      "background": "#131313",
+                      "secondary": "#4cd7f6",
+                      "on-primary-container": "#dbeafe",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "on-surface": "#ffffff",
+                      "outline-variant": "#9ca3af",
+                      "secondary-container": "#03b5d3",
+                      "inverse-surface": "#e5e2e1",
+                      "on-error": "#690005",
+                      "surface-dim": "#131313",
+                      "surface-container-low": "#1c1b1b",
+                      "on-tertiary-container": "#5b0017",
+                      "inverse-on-surface": "#313030",
+                      "on-secondary-fixed-variant": "#004e5c",
+                      "on-tertiary-fixed": "#40000d",
+                      "primary-fixed": "#dbeafe",
+                      "outline": "#988d9f",
+                      "primary-fixed-dim": "#93c5fd",
+                      "surface-tint": "#60a5fa",
+                      "surface": "#131313",
+                      "on-primary-fixed": "#1e3a8a",
+                      "tertiary": "#ffb2b7",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-fixed": "#ffdadb",
+                      "on-background": "#e5e2e1",
+                      "error-container": "#93000a",
+                      "on-secondary-container": "#00424e",
+                      "tertiary-container": "#ff516a",
+                      "surface-container-highest": "#353534",
+                      "on-surface-variant": "#C4C3C5",
+                      "secondary-fixed-dim": "#4cd7f6",
+                      "surface-bright": "#3a3939",
+                      "on-primary-fixed-variant": "#1d4ed8",
+                      "primary": "#02CEFF",
+                      "surface-container": "#201f1f",
+                      "error": "#ffb4ab",
+                      "on-tertiary": "#67001b",
+                      "inverse-primary": "#2563eb",
+                      "surface-container-high": "#2a2a2a",
+                      "on-secondary-fixed": "#001f26",
+                      "on-tertiary-fixed-variant": "#92002a",
+                      "surface-variant": "#353534",
+                      "surface-container-lowest": "#0e0e0e",
+                      "secondary-fixed": "#acedff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "fluid-sm": "clamp(8px, 2vw, 16px)",
+                      "fluid-md": "clamp(16px, 4vw, 32px)",
+                      "fluid-lg": "clamp(24px, 6vw, 48px)",
+                      "fluid-xl": "clamp(32px, 8vw, 64px)",
+                      "stack-lg": "clamp(24px, 5vw, 32px)",
+                      "gutter": "clamp(16px, 4vw, 24px)",
+                      "stack-sm": "clamp(4px, 1.5vw, 8px)",
+                      "unit": "4px",
+                      "stack-md": "clamp(12px, 3vw, 16px)",
+                      "margin-page": "clamp(16px, 5vw, 40px)",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "h1": ["'Bitcount Prop Single'", "Lato", "sans-serif"],
+                      "h2": ["'Bitcount Prop Single'", "Lato", "sans-serif"],
+                      "body-md": ["Lato", "sans-serif"],
+                      "button": ["Lato", "sans-serif"],
+                      "body-lg": ["Lato", "sans-serif"],
+                      "label-caps": ["Lato", "sans-serif"]
+              },
+              "fontSize": {
+                      "h1": ["clamp(32px, 5vw + 16px, 64px)", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "h2": ["clamp(24px, 4vw + 12px, 48px)", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                      "h3": ["clamp(20px, 3vw + 8px, 32px)", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-md": ["clamp(14px, 2vw + 10px, 16px)", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                      "button": ["clamp(14px, 2vw + 10px, 16px)", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "body-lg": ["clamp(16px, 2.5vw + 10px, 18px)", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "fluid-xs": "clamp(0.75rem, 1vw + 0.25rem, 0.875rem)",
+                      "fluid-sm": "clamp(0.875rem, 1.5vw + 0.25rem, 1rem)",
+                      "fluid-base": "clamp(1rem, 2vw + 0.25rem, 1.125rem)",
+                      "fluid-lg": "clamp(1.125rem, 2.5vw + 0.25rem, 1.25rem)",
+                      "fluid-xl": "clamp(1.25rem, 3vw + 0.25rem, 1.5rem)"
+              }
+            },
+          },
+        }
+    </script>
+    <script>
+      // HyperText MagicUI Implementation (Vanilla JS)
+      document.addEventListener("DOMContentLoaded", () => {
+        const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
+        class HyperText {
+          constructor(element, duration = 800) {
+            this.element = element;
+            this.originalText = element.innerText.trim();
+            this.duration = duration;
+            this.letters = this.originalText.split("");
+            this.render();
+            this.element.addEventListener("mouseenter", () => this.trigger());
+            setTimeout(() => this.trigger(), 500);
+            setInterval(() => this.trigger(), 10000); // Auto trigger every 10 seconds
+          }
+          render() {
+            this.element.innerHTML = "";
+            this.spans = this.letters.map((char) => {
+              const span = document.createElement("span");
+              span.innerText = char;
+              span.style.display = "inline-block";
+              span.style.minWidth = char === " " ? "0.5em" : "auto";
+              this.element.appendChild(span);
+              return span;
+            });
+          }
+          trigger() {
+            if (this.isAnimating) return;
+            this.isAnimating = true;
+            let currentIteration = 0;
+            const maxIterations = 8;
+            const interval = this.duration / (this.letters.length * maxIterations);
+            const tick = setInterval(() => {
+              this.spans.forEach((span, index) => {
+                if (index < Math.floor(currentIteration / maxIterations)) {
+                  span.innerText = this.letters[index];
+                  span.style.color = "";
+                } else {
+                  span.innerText = alphabets[Math.floor(Math.random() * alphabets.length)];
+                }
+              });
+              currentIteration++;
+              if (currentIteration >= this.letters.length * maxIterations) {
+                clearInterval(tick);
+                this.spans.forEach((span, index) => {
+                  span.innerText = this.letters[index];
+                  span.style.color = "";
+                });
+                this.isAnimating = false;
+              }
+            }, interval);
+          }
+        }
+        const logo = document.getElementById('hyperTextLogo');
+        if (logo) new HyperText(logo, 600);
+        
+        const heroHacker = document.getElementById('heroHackerText');
+        if (heroHacker) new HyperText(heroHacker, 800);
+        
+        const footerHacker = document.getElementById('footerHackerText');
+        if (footerHacker) new HyperText(footerHacker, 600);
+
+        // WordRotate MagicUI Implementation (Vanilla JS)
+        class WordRotate {
+          constructor(element, words, duration = 3000) {
+            this.element = element;
+            this.words = words;
+            this.duration = duration;
+            this.currentIndex = 0;
+            
+            this.element.innerHTML = '';
+            this.element.style.position = 'relative';
+            this.element.style.display = 'inline-flex';
+            this.element.style.alignItems = 'center';
+            this.element.style.justifyContent = 'center';
+            this.element.style.overflow = 'hidden';
+            // Set min height to avoid layout shift
+            this.element.style.minHeight = '1.5em';
+            
+            this.currentSpan = document.createElement('span');
+            this.currentSpan.innerText = this.words[0];
+            this.currentSpan.style.display = 'block';
+            this.currentSpan.style.transition = 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)';
+            this.currentSpan.style.opacity = '1';
+            this.currentSpan.style.transform = 'translateY(0)';
+            this.element.appendChild(this.currentSpan);
+            
+            setInterval(() => this.rotate(), this.duration);
+          }
+
+          rotate() {
+            // Animate out (slide up and fade)
+            this.currentSpan.style.opacity = '0';
+            this.currentSpan.style.transform = 'translateY(-15px)';
+            
+            setTimeout(() => {
+              this.currentIndex = (this.currentIndex + 1) % this.words.length;
+              this.currentSpan.innerText = this.words[this.currentIndex];
+              
+              // Move to bottom instantly without transition
+              this.currentSpan.style.transition = 'none';
+              this.currentSpan.style.transform = 'translateY(15px)';
+              
+              // Force reflow
+              void this.currentSpan.offsetWidth;
+              
+              // Animate in (slide to center and fade in)
+              this.currentSpan.style.transition = 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)';
+              this.currentSpan.style.opacity = '1';
+              this.currentSpan.style.transform = 'translateY(0)';
+            }, 500);
+          }
+        }
+        
+        const wordRotateEl = document.getElementById('wordRotateContainer');
+        if (wordRotateEl) {
+          new WordRotate(wordRotateEl, [
+            "Paste, clip, and extract. One tool to handle them all.",
+            "No ads. Designed for creators, easy for everyone to use.",
+            "Tools are just a tool, not a complete replacement."
+          ], 7000);
+        }
+      });
+    </script>
+</head>
+<body class="text-on-surface font-body-md overflow-x-hidden flex flex-col min-h-screen">
+    <!-- Aurora Background Video -->
+    <img src="assets/aurora-bg.jpg" alt="Aurora Background" class="aurora-bg" />
+
+    <!-- Overlay to ensure text readability -->
+    <div class="fixed inset-0 bg-black/30 z-[-1] pointer-events-none"></div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toastContainer" class="fixed top-24 right-6 z-50 flex flex-col gap-3">
+        <!-- Messages will be injected here -->
+    </div>
+
+    <!-- Auto-Save Notification (Bottom Right) -->
+    <div id="autoSaveToast" class="fixed bottom-6 right-6 z-50 bg-black/60 border border-white/10 rounded-full px-4 py-2 flex items-center gap-2 text-white/80 text-xs font-medium backdrop-blur-md opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
+        <span class="material-symbols-outlined text-green-400 text-[14px]">cloud_done</span>
+        Progress Disimpan
+    </div>
+
+    <!-- Top Left Settings Button -->
+    <div class="absolute top-6 left-3 md:left-5 z-50">
+        <button id="settingsBtn" class="setting-btn" aria-label="Settings">
+            <span class="bar bar1"></span>
+            <span class="bar bar2"></span>
+            <span class="bar bar1"></span>
+        </button>
+    </div>
+
+
+
+
+    <main class="pt-12 md:pt-16 pb-fluid-lg px-fluid-md w-full max-w-7xl mx-auto relative z-20 flex-grow">
+        
+        <!-- Hero Section -->
+        <section class="flex flex-col items-center text-center mb-4 md:mb-6">
+            <h1 id="heroHackerText" class="font-h1 text-4xl sm:text-5xl md:text-h1 text-primary mb-stack-sm drop-shadow-sm cursor-default inline-block">FythhX.</h1>
+            <div class="h-auto md:h-16 flex items-center justify-center w-full mb-6 md:mb-stack-lg px-4">
+                <p id="wordRotateContainer" class="font-body-lg text-[11px] sm:text-xs md:text-body-lg text-on-surface-variant max-w-2xl text-center">
+                    Fetch, clip, and extract. One tool to handle them all.
+                </p>
+            </div>
+
+            <div id="main-search-wrapper" class="w-full max-w-3xl glass-panel rounded-xl p-2 md:p-stack-sm flex flex-row gap-2 md:gap-stack-sm items-stretch relative z-50" style="margin: 0 auto; overflow: visible;">
+              <div class="relative flex-grow z-10">
+                <input id="urlInput" placeholder="" type="text" name="text" class="search-input text-xs sm:text-sm md:text-base min-h-[44px] md:min-h-[56px] pr-10" autocomplete="off" style="width: 100%; max-width: 100%; height: 100%; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; color: white; padding-left: 20px; box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.02);" />
+                <button id="clearUrlBtn" class="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors hidden z-20" aria-label="Clear URL" style="outline: none;">
+                  <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+                </button>
+
+                <!-- Recent URLs Dropdown -->
+                <div id="recentUrlsDropdown" class="absolute left-0 right-0 z-50 hidden"
+                  style="top: calc(100% + 6px); min-width: 250px; background: rgba(18,18,28,0.97); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.6); backdrop-filter: blur(20px); overflow: hidden;">
+                  <div class="flex items-center justify-between px-3 py-2 md:px-4 md:py-2.5 border-b border-white/5">
+                    <span class="text-[10px] md:text-[11px] font-bold uppercase tracking-widest" style="color:rgba(255,255,255,0.35);">Recent Links</span>
+                    <button id="clearRecentUrlsBtn" class="text-[10px] hover:text-red-400 transition-colors" style="color:rgba(255,255,255,0.3);" title="Hapus semua riwayat">
+                      <span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;">delete_sweep</span>
+                      <span >Clear All</span>
+                    </button>
+                  </div>
+                  <div id="recentUrlsList" class="flex flex-col" style="max-height: 220px; overflow-y: auto;"></div>
+                </div>
+              </div>
+
+              <button type="button" class="search-btn flex items-center justify-center gap-1" id="fetchBtn">
+                <span class="material-symbols-outlined md:hidden text-lg leading-none">search</span>
+                <span class="hidden md:inline">Search</span>
+              </button>
+            </div>
+
+
+            <!-- Tab Navigation (Downloader / Clipper / Storage) — below quick links -->
+            <div id="tabNavigation" class="hidden w-full max-w-3xl flex justify-center gap-1 md:gap-2 border-b border-white/10 pb-0 mt-5 mx-auto overflow-hidden">
+              <button id="tabDownloader" class="tab-btn active px-2 py-3 md:px-6 font-button text-[10px] sm:text-xs md:text-button text-primary border-b-2 border-primary flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 flex-1 md:flex-none">
+                <span class="material-symbols-outlined text-[16px] md:text-[18px]">download</span> <span class="truncate">Downloader</span>
+              </button>
+              <button id="tabTrimmer" class="tab-btn px-2 py-3 md:px-6 font-button text-[10px] sm:text-xs md:text-button text-on-surface-variant hover:text-white transition-colors flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 flex-1 md:flex-none">
+                <span class="material-symbols-outlined text-[16px] md:text-[18px]">movie_edit</span> <span class="truncate">Trimmer</span>
+              </button>
+              <button id="tabClipper" class="tab-btn px-2 py-3 md:px-6 font-button text-[10px] sm:text-xs md:text-button text-on-surface-variant hover:text-white transition-colors flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 flex-1 md:flex-none">
+                <span class="material-symbols-outlined text-[16px] md:text-[18px]">content_cut</span> <span class="truncate">Clipper</span>
+              </button>
+              <button id="tabStorage" class="tab-btn px-2 py-3 md:px-6 font-button text-[10px] sm:text-xs md:text-button text-on-surface-variant hover:text-white transition-colors flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 flex-1 md:flex-none">
+                <span class="material-symbols-outlined text-[16px] md:text-[18px]">folder</span> <span class="truncate">Storage</span>
+              </button>
+            </div>
+            
+            <!-- Loader Container below form -->
+              <div id="loaderContainer" class="hidden flex flex-col items-center justify-center mt-12 mb-8">
+                <div class="jimu-loader-container scale-50 md:scale-100">
+                  <div class="justify-content-center jimu-primary-loading"></div>
+                </div>
+              <p id="loaderDynamicText" class="mt-8 text-primary font-['Space_Grotesk'] text-xs md:text-sm tracking-widest font-medium animate-pulse text-center">
+                  ANALYZING THE LINK...
+              </p>
+              </div>
+        </section>
+
+        <div id="metadataSection" class="hidden flex flex-col gap-gutter transition-all duration-500 opacity-0 transform translate-y-4">
+            
+            <!-- Metadata Card -->
+            <div id="metadataCard" class="flex flex-col gap-gutter">
+                <div class="glass-panel rounded-xl overflow-hidden flex flex-col md:flex-row relative">
+                    <!-- Border Beam Effect -->
+                    <div class="border-beam-mask">
+                        <div class="border-beam-glow"></div>
+                        <div class="border-beam-glow delay"></div>
+                    </div>
+                        <div id="thumbnailContainer" class="w-full md:w-1/3 relative overflow-hidden bg-black flex items-center justify-center">
+                            <img id="thumbnailBlur" class="absolute inset-0 w-full h-full object-cover opacity-30" src="" style="display: none;" />
+                            <img id="thumbnail" class="w-full h-full relative z-10" src="" alt="Video thumbnail" style="display: none;"/>
+                            <!-- Fallback icon if no thumbnail -->
+                            <span id="thumbnailFallback" class="material-symbols-outlined text-6xl text-outline-variant absolute z-20">movie</span>
+                        </div>
+                        <div class="p-4 md:p-stack-lg w-full md:w-2/3 flex flex-col justify-center">
+                        <div>
+                            <div class="flex items-center gap-stack-sm mb-stack-sm">
+                                <span id="mediaPlatformTag" class="bg-primary/10 text-primary-fixed-dim text-[10px] md:text-xs p-1 rounded border border-primary/20 uppercase">Media</span>
+                                <span class="text-on-surface-variant text-[10px] md:text-xs opacity-60">• <span>Extracted</span></span>
+                            </div>
+                            <h2 id="videoTitle" class="font-h2 text-lg md:text-2xl text-white mb-2 leading-tight line-clamp-2">-</h2>
+                            <p id="videoUploader" class="text-white/80 font-body-md text-xs md:text-sm mb-2">-</p>
+                        </div>
+                        <div class="grid grid-cols-3 gap-stack-md pt-4 border-t border-[#06B9F9]/60 mt-6">
+                            <div>
+                                <p class="text-[9px] md:text-[10px] uppercase tracking-tighter text-outline-variant font-bold mb-1">Duration</p>
+                                <p id="videoDuration" class="text-on-surface font-medium text-xs md:text-base">-</p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] md:text-[10px] uppercase tracking-tighter text-outline-variant font-bold mb-1">Filesize</p>
+                                <p id="videoFilesize" class="text-on-surface font-medium text-xs md:text-base">-</p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] md:text-[10px] uppercase tracking-tighter text-outline-variant font-bold mb-1">Status</p>
+                                <p id="metadataStatus" class="text-secondary flex items-center gap-1 text-xs md:text-base">
+                                    <span id="metadataStatusDot" class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span> <span id="metadataStatusText">Ready</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            </div><!-- /metadataCard -->
+
+            <!-- Controls (Tab Content) -->
+            <div class="flex flex-col gap-gutter">
+                
+                <div id="downloaderSection" class="glass-panel rounded-none md:rounded-xl p-0 sm:p-4 md:p-stack-lg flex-grow border-0 md:border md:border-[#06B9F9]/60">
+                    <h3 class="text-on-surface font-h2 text-[16px] md:text-[18px] mb-stack-md flex items-center justify-between border-b border-[#06B9F9]/30 pb-4 md:pb-6 w-full">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary">tune</span>
+                            Output Settings
+                        </div>
+                    </h3> 
+                    
+                    <div class="space-y-4">
+                        
+                        <!-- Media & Quality Settings (Unwrapped) -->
+                        <div class="w-full mb-4">
+                            <!-- Container for active toggle -->
+                            <div id="activeToggleContainer" class="w-full"></div>
+    
+                            <!-- Preview + Quality — shown when MP4 selected -->
+                            <div id="qualitySectionCollapsible">
+                                <div class="flex flex-col-reverse lg:flex-row gap-4 items-start">
+    
+                                    <!-- Preview Video: ~55% width on desktop, 100% on mobile -->
+                                    <div class="relative hidden w-full lg:w-auto flex-shrink-0" id="trimmerVideoWrapper">
+                                        <video id="trimmerVideoPreview" class="rounded-xl border border-primary/60 shadow-[0_0_15px_rgba(2,206,255,0.2)] bg-black w-full lg:w-auto" style="max-height: 60vh; object-fit: contain; display: block;" playsinline></video>
+                                    </div>
+    
+                                    <!-- Quality buttons & Format Selection -->
+                                    <div id="qualityColumn" class="flex-1 w-full min-w-0 flex flex-col pl-0">
+                                        
+                                        <!-- Format Dropdown Moved Here -->
+                                        <div class="mb-5">
+                                            <div class="border-b border-white/10 pb-2 mb-3">
+                                                <label class="block text-label-caps text-outline-variant uppercase max-lg:text-[10px] max-lg:tracking-[0.08em]">Media Format</label>
+                                            </div>
+                                            <!-- Desktop Dropdown -->
+                                            <div class="relative hidden md:block" id="customFormatDropdown">
+                                                <button type="button" id="formatSelectBtn" class="w-full glass-inner text-on-surface rounded-lg py-2 px-4 text-sm hover:border-secondary transition-all cursor-pointer outline-none flex justify-between items-center glass-panel">
+                                                    <span id="formatSelectLabel">-- Select a format --</span>
+                                                    <span class="material-symbols-outlined text-outline-variant pointer-events-none transition-transform duration-200" id="formatSelectIcon">expand_more</span>
+                                                </button>
+                                                <div id="formatDropdownMenu" class="absolute z-50 w-full mt-2 glass-dropdown rounded-lg shadow-2xl custom-select-menu closed flex flex-col overflow-hidden">
+                                                    <button type="button" class="format-option w-full text-left px-4 py-2 text-sm text-white hover:bg-secondary/20 hover:text-secondary transition-colors" data-value="">-- Select a format --</button>
+                                                    <button type="button" class="format-option w-full text-left px-4 py-2 text-sm text-white hover:bg-secondary/20 hover:text-secondary transition-colors" data-value="mp4">MP4 (Video)</button>
+                                                    <button type="button" class="format-option w-full text-left px-4 py-2 text-sm text-white hover:bg-secondary/20 hover:text-secondary transition-colors" data-value="mp3">MP3 (Audio)</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Mobile Buttons -->
+                                            <div class="grid grid-cols-2 gap-3 md:hidden" id="mobileFormatGrid">
+                                                <button type="button" class="mobile-format-btn py-3 px-4 rounded-lg bg-[#0A222F] border border-white/5 text-[#C4C3C5] text-sm text-center transition-all hover:border-white/20 hover:text-white font-button" data-value="mp4">MP4 (Video)</button>
+                                                <button type="button" class="mobile-format-btn py-3 px-4 rounded-lg bg-[#0A222F] border border-white/5 text-[#C4C3C5] text-sm text-center transition-all hover:border-white/20 hover:text-white font-button" data-value="mp3">MP3 (Audio)</button>
+                                            </div>
+                                            
+                                            <!-- Hidden Select input -->
+                                            <input type="hidden" id="formatSelect" value="">
+                                        </div>
+
+                                        <div class="border-b border-white/10 pb-2 mb-3 flex items-center justify-between md:cursor-default cursor-pointer" id="qualityHeaderToggle" onclick="if(window.innerWidth < 768) { document.getElementById('qualityScrollContainer').classList.toggle('mobile-collapsed'); document.getElementById('qualityToggleIcon').textContent = document.getElementById('qualityScrollContainer').classList.contains('mobile-collapsed') ? 'expand_more' : 'expand_less'; }">
+                                            <label id="qualityLabelText" class="block text-label-caps text-outline-variant uppercase flex-shrink-0 md:cursor-default cursor-pointer pointer-events-none max-lg:text-[10px] max-lg:tracking-[0.08em]">Resolution / Quality</label>
+                                            <span class="material-symbols-outlined text-outline-variant transition-transform text-[18px] md:hidden" id="qualityToggleIcon">expand_less</span>
+                                        </div>
+                                        
+                                        <!-- Container for quality buttons -->
+                                        <div class="min-h-0 overflow-y-auto pr-1 hide-scrollbar" id="qualityScrollContainer">
+                                            <div id="qualityContainer" class="grid grid-cols-2 gap-3 pb-1">
+                                                <div class="col-span-2 text-center py-4 text-outline-variant text-sm border border-dashed border-white/10 rounded-lg">
+                                                    Select the format first
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hidden stubs for JS compat -->
+                        <div class="hidden">
+                            <div id="customQualityDropdown"><button id="qualitySelectBtn"></button><div id="qualityDropdownMenu"></div><input id="qualitySelect" type="hidden"><span id="qualitySelectLabel"></span><span id="qualitySelectIcon"></span></div>
+                        </div>
+
+                        <!-- Modal 2: Timeline Trimmer (Hidden by default, toggled by VIDEO TRIM switch) -->
+                        <div id="trimmerSection" class="hidden w-full">
+                            <section class="glass-inner p-2 sm:p-5 rounded-none sm:rounded-xl !border-0 sm:!border !border-primary/50 !shadow-none sm:!shadow-[0_0_15px_rgba(2,206,255,0.05)] w-full mb-4">
+                                <h4 class="text-xs sm:text-sm font-bold text-white border-b border-primary/30 pb-3 mb-4 uppercase tracking-wider flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px] text-primary">video_camera_front</span>
+                                    Timeline
+                                    <span class="text-[10px] text-outline-variant ml-1 normal-case font-normal hidden sm:inline">(Drag handles to set IN / OUT points)</span>
+                                </h4>
+                                <div id="trimmer-engine-root" class="mb-2"></div>
+                                
+                                <!-- Merged Clip Manager -->
+                                <div id="multiTrimContainer" class="hidden w-full border-t border-primary/30 pt-4 mt-2">
+                                    <h4 class="text-[11px] sm:text-sm font-bold text-white pb-3 mb-3 uppercase tracking-wider flex items-center justify-between gap-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-[18px] text-secondary">checklist</span>
+                                            Clip Manager & Actions
+                                        </div>
+                                        <button type="button" id="sendToClipperBtn" class="hidden h-[32px] text-xs text-secondary/90 hover:text-secondary font-bold flex items-center gap-1 transition-colors px-3 bg-secondary/10 hover:bg-secondary/20 rounded shadow-sm whitespace-nowrap">
+                                            <span class="material-symbols-outlined text-[15px]">ios_share</span> Eksport To Clips
+                                        </button>
+                                    </h4>
+                                    <!-- Row: Name input + Save button + Bulk Actions -->
+                                    <div id="multiTrimInputRow" class="flex flex-wrap gap-2 mb-3 items-center">
+                                        <input type="text" id="customTrimNameInput" placeholder="Clip name (e.g. Epic Moment)" class="flex-grow bg-surface/50 border border-white/10 rounded-md px-3 py-2 text-sm text-white outline-none focus:border-primary transition-colors h-[36px] min-w-[150px]">
+                                        <button type="button" id="addCustomTrimBtn" class="bg-white/5 hover:bg-white/10 text-white/70 hover:text-white px-3 rounded text-xs font-medium transition-colors whitespace-nowrap flex items-center gap-1 shrink-0 h-[36px] group">
+                                            <span class="material-symbols-outlined text-[15px] text-white/50 group-hover:text-primary transition-colors">bookmark_add</span> Save Trim
+                                        </button>
+                                        
+                                        <div id="multiTrimBulkActions" class="flex gap-2 items-center hidden h-[36px] border-l border-white/10 pl-2">
+                                            <button type="button" id="multiTrimSelAllBtn" class="px-2 h-full bg-white/5 hover:bg-white/10 text-white/70 text-xs rounded transition-colors font-medium whitespace-nowrap flex items-center">Select All</button>
+                                            <button type="button" id="multiTrimClearBtn" class="px-2 h-full bg-white/5 hover:bg-white/10 text-white/70 text-xs rounded transition-colors font-medium whitespace-nowrap flex items-center">Clear</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Checkbox list — hidden if empty -->
+                                    <div id="customTrimListContainer" class="hidden">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="text-[10px] uppercase tracking-wider font-bold text-white/50">Saved Trims <span id="customTrimCount" class="text-primary ml-1">0</span> selected</span>
+                                        </div>
+                                        <div id="customTrimCheckboxList" class="flex flex-col gap-1.5 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                                            <!-- Items injected by multiTrimLogic.js -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="pt-4 border-t border-white/10 mt-2">
+                            <button id="downloadBtn" disabled class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-button text-[16px] md:text-[18px] py-3 md:py-4 rounded-xl flex items-center justify-center gap-3 glow-hover transition-all active:scale-[0.98] shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100 mb-3">
+                                <span class="material-symbols-outlined font-bold" id="downloadBtnIcon">download</span>
+                                <span id="downloadBtnText">Download</span>
+                            </button>
+                            
+                            <p class="text-center text-[11px] text-outline-variant mt-4 leading-relaxed mb-4">
+                                Downloaded content is saved to the local /downloads folder.
+                            </p>
+                        </div>
+                        
+                        <!-- Download Process / Queue -->
+                        <div id="downloadProgress" class="glass-panel rounded-xl p-4 md:p-stack-lg relative overflow-hidden hidden transition-all duration-300">
+                            <div class="flex justify-between items-center mb-stack-md">
+                                <h3 class="text-on-surface font-body-md font-bold text-sm md:text-[20px] flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary text-lg md:text-2xl">cloud_download</span>
+                                    <span id="progressStatus">Memulai download...</span>
+                                </h3>
+                                <span id="progressPercent" class="text-primary font-label-caps text-xs md:text-sm">0%</span>
+                            </div>
+                            <div class="w-full h-1.5 glass-inner rounded-full overflow-hidden mb-stack-sm">
+                                <div id="progressFill" class="h-full bg-gradient-to-r from-primary via-secondary to-primary-container w-[0%] relative transition-all duration-300">
+                                    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full blur-md opacity-80"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-center text-label-caps text-on-surface-variant">
+                                <span id="progressSpeed">Speed: -</span>
+                                <span id="progressEta">Time Remaining: -</span>
+                            </div>
+                        </div>
+
+                        <button id="cancelBtn" class="hidden w-full mt-4 bg-transparent border border-primary/50 text-primary/80 font-button text-[16px] py-3 rounded-xl flex items-center justify-center gap-3 transition-all hover:border-[#B64949] hover:text-[#B64949] active:scale-[0.98]">
+                            <span class="material-symbols-outlined">cancel</span>
+                            <span>Cancel Download</span>
+                        </button>
+                        
+                        <!-- Multi-Trim Task Queue (visible during multi-clip trim) -->
+                        <div id="multiTrimQueue" class="hidden mt-3 flex flex-col gap-2">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-bold text-white/70 uppercase tracking-wider flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px] text-primary">queue_play_next</span>
+                                    Trim Queue
+                                </span>
+                                <span id="multiTrimQueueOverall" class="text-[11px] text-primary font-bold">0 / 0 done</span>
+                            </div>
+                            <!-- Overall progress -->
+                            <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden mb-1">
+                                <div id="multiTrimOverallBar" class="h-full bg-gradient-to-r from-primary to-secondary w-[0%] transition-all duration-300"></div>
+                            </div>
+                            <!-- Per-clip task list -->
+                            <div id="multiTrimTaskList" class="flex flex-col gap-1.5 max-h-52 overflow-y-auto custom-scrollbar pr-1"></div>
+                        </div>
+                        
+                        <div id="downloadOutputs" class="flex flex-col gap-2 mt-4"></div>
+                    </div>
+                </div>
+                
+                <div id="clipperSection" class="glass-panel rounded-xl p-4 md:p-stack-lg flex-grow hidden border border-[#06B9F9]/60">
+                  <h3 id="clipperTitle" class="text-on-surface font-h2 text-[18px] mb-stack-md flex items-center gap-2 border-b border-[#06B9F9]/30 pb-4 md:pb-6">
+                    <span class="material-symbols-outlined text-secondary">content_cut</span>
+Moment Clip Found!
+                  </h3>
+                  
+                  <div class="space-y-4">
+                    <!-- Segment list panel -->
+                    <section id="clipperSegPanel" class="hidden glass-inner p-5 rounded-xl !border !border-primary/50 !shadow-[0_0_15px_rgba(2,206,255,0.05)] w-full mb-4">
+                      <div id="clipperSegments" class="w-full mb-2"></div>
+                      
+                      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 border-t border-primary/30 mt-4 w-full">
+                        <div class="flex items-center gap-2">
+                          <span id="clipperSegMeta" class="text-[10px] uppercase tracking-wider font-bold text-white/50"></span>
+                          <span class="text-white/20">•</span>
+                          <span id="clipperSelCount" class="text-[10px] uppercase tracking-wider font-bold text-primary">0 selected</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <button id="clipperSelAll" class="px-3 py-1.5 h-[32px] bg-white/5 hover:bg-white/10 text-white/70 text-xs rounded transition-colors font-medium whitespace-nowrap flex items-center">Select All</button>
+                          <button id="clipperSelClear" class="px-3 py-1.5 h-[32px] bg-white/5 hover:bg-white/10 text-white/70 text-xs rounded transition-colors font-medium whitespace-nowrap flex items-center">Clear</button>
+                        </div>
+                      </div>
+                    </section>
+
+                    <!-- Settings panel -->
+                    <section id="clipperSettings" class="hidden space-y-6">
+                      
+                      <!-- Group 1: Video & Layout moved to be next to canvas -->
+
+                                                                  <!-- Group 4: Canvas Preview & Styling -->
+                      <div id="clipperSubSettings" class="mt-4 mb-6 w-full">
+                        
+                        <!-- MAIN FLEX LAYOUT -->
+                        <div class="flex flex-col gap-6 w-full">
+                          
+                          <!-- TOP: Canvas & Video Config -->
+                          <div id="clipperTopGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch w-full relative z-100">
+                            
+                            <!-- LEFT: Canvas Preview -->
+                            <div class="w-full flex justify-center h-full relative" id="clipperLeftPaneWrapper">
+                               <div class="absolute inset-0 glass-inner rounded-xl !border !border-primary/50 !shadow-[0_0_15px_rgba(2,206,255,0.05)] pointer-events-none z-0"></div>
+                               <div id="clipperLeftPane" class="relative z-10 p-5 flex flex-col items-center justify-start transition-all duration-300 w-full h-full">
+                               <h4 class="text-sm font-bold text-white border-b border-primary/30 pb-3 mb-3 flex items-center gap-2 w-full flex-shrink-0"><span class="material-symbols-outlined text-[18px] text-pink-400">palette</span> 
+Canvas Preview</h4>
+                               
+                               <div class="w-full flex-grow flex items-center justify-center min-h-0 min-w-0 relative">
+                                 <div id="canvasPreviewContainer" class="relative bg-black/80 border border-white/20 rounded shadow-xl overflow-hidden mx-auto flex-shrink-0" style="aspect-ratio: 9/16; background-image: radial-gradient(circle, #444 1px, transparent 1px); background-size: 10px 10px; width: auto; height: 100%; max-width: 100%; max-height: 100%;">
+                                 <!-- Loader -->
+                                 <div id="previewLoader" class="absolute inset-0 flex items-center justify-center bg-black/90 hidden z-20">
+                                   <span class="material-symbols-outlined animate-spin text-white text-3xl">autorenew</span>
+                                 </div>
+                                 
+                                 <!-- Video Container with native video (no YouTube overlay) -->
+                                 <div id="previewVideoContainer" class="absolute inset-0 w-full h-full z-0 hidden">
+                                    <div id="pvTop" class="absolute overflow-hidden" style="width:100%; height:100%; top:0; left:0;">
+                                      <video id="iframeTop" class="absolute" style="top:0; left:0; width:100%; height:100%; object-fit:cover;" autoplay muted playsinline loop></video>
+                                      <div id="freezeTop" class="absolute inset-0 bg-black/50 hidden z-10"></div>
+                                    </div>
+                                    <div id="pvBottom" class="absolute overflow-hidden hidden" style="width:100%; height:31.6%; top:68.4%; left:0;">
+                                      <video id="iframeBottom" class="absolute" style="top:0; left:0; width:100%; height:100%; object-fit:cover;" autoplay muted playsinline loop></video>
+                                      <div id="freezeBottom" class="absolute inset-0 bg-black/50 hidden z-10"></div>
+                                    </div>
+                                 </div>
+
+                                 <!-- Subtitle Preview -->
+                                 <div id="subtitlePreview" class="absolute -translate-x-1/2 -translate-y-1/2 text-center whitespace-nowrap pointer-events-none z-20" style="font-size: 14px; font-family: Montserrat; color: #fff; text-shadow: 1px 1px 2px #000;">
+                                   EXAMPLE FONT
+                                 </div>
+                                 
+                                 <!-- Watermark Preview -->
+                                 <div id="wmPreview" class="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none z-30 hidden" style="font-family: Arial, sans-serif; font-weight: bold; color: rgba(255, 255, 255, 0.5);">
+                                   @Watermark
+                                 </div>
+                               </div>
+                               </div>
+                               
+                               <!-- Clip Preview Navigation -->
+                               <div class="relative w-full mt-3">
+                                 <div class="absolute inset-0 glass-inner rounded-xl border border-white/10 shadow-sm pointer-events-none z-0"></div>
+                                 <div id="clipperPreviewNav" class="relative z-10 flex items-center justify-between w-full p-2 transition-all duration-300">
+                                   <div class="flex items-center gap-1">
+                                     <button type="button" id="clipperPlayPauseBtn" class="w-8 h-8 flex items-center justify-center hover:bg-primary/20 text-primary rounded-lg transition-colors z-30 relative"><span class="material-symbols-outlined text-[18px]">play_arrow</span></button>
+                                     <button type="button" id="clipperMuteBtn" class="w-8 h-8 flex items-center justify-center hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition-colors z-30 relative"><span class="material-symbols-outlined text-[18px]">volume_up</span></button>
+                                   </div>
+                                 <div class="flex items-center flex-grow justify-end gap-1 z-30 relative">
+                                    <button type="button" id="clipperPrevClipBtn" class="w-8 h-8 flex items-center justify-center hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition-colors flex-shrink-0"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+                                    
+                                    <div class="relative flex-grow max-w-[220px]">
+                                        <button type="button" id="clipperPreviewLabel" class="w-full text-[10px] md:text-[11px] font-bold text-white/90 bg-black/40 px-3 py-1.5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors flex justify-between items-center gap-1">
+                                            <span id="clipperPreviewLabelText" class="truncate">Not yet selected</span>
+                                            <span class="material-symbols-outlined text-[14px]">arrow_drop_down</span>
+                                        </button>
+                                        <div id="clipperPreviewDropdown" class="absolute top-full right-0 mt-2 w-max min-w-[200px] max-h-48 overflow-y-auto glass-dropdown rounded-lg border border-white/10 shadow-2xl z-50 hidden custom-scrollbar flex flex-col p-1">
+                                            <!-- List klip -->
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="button" id="clipperNextClipBtn" class="w-8 h-8 flex items-center justify-center hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition-colors flex-shrink-0"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+                                   </div>
+                                 </div>
+                               </div>
+                             </div>
+                            </div>
+                            
+                            <!-- RIGHT: Konfigurasi Video & Layout -->
+                            <div id="videoLayoutConfigBlock" class="glass-inner p-5 rounded-xl !border !border-primary/50 !shadow-[0_0_15px_rgba(2,206,255,0.05)] flex flex-col transition-all duration-300 w-full h-full gap-4">
+                              <h4 class="text-sm font-bold text-white border-b border-primary/30 pb-3 mb-2 flex items-center gap-2 w-full">
+                                <span class="material-symbols-outlined text-[18px] text-primary">movie_edit</span> 
+Video Configuration & Layout
+                              </h4>
+                              
+                              <div id="clipperSettingsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                                <label class="block relative group">
+                                  <div class="flex items-center gap-1 mb-1 h-5">
+                                    <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Aspect Ratio</span>
+                                    <button type="button" id="btnRatioInfo" class="flex items-center text-primary hover:text-white transition-colors" title="Lihat Visualisasi Aspect Ratio"><span class="material-symbols-outlined text-[14px]">info</span></button>
+                                  </div>
+                                  <select id="clipperRatio" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                    <option value="16:9">16:9 (Landscape)</option>
+                                    <option value="9:16">9:16 (Shorts/TikTok)</option>
+                                    <option value="1:1">1:1 (Square)</option>
+                                  </select>
+                                </label>
+
+                                <label class="block relative group">
+                                  <div class="flex items-center gap-1 mb-1 h-5">
+                                    <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Crop Mode</span>
+                                    <button type="button" id="btnCropInfo" class="flex items-center text-primary hover:text-white transition-colors" title="Lihat Visualisasi Crop Mode"><span class="material-symbols-outlined text-[14px]">info</span></button>
+                                  </div>
+                                  <input type="hidden" id="clipperCamZoom" value="">
+                                  <input type="hidden" id="clipperCamX" value="">
+                                  <input type="hidden" id="clipperCamY" value="">
+                                  <input type="hidden" id="clipperGameZoom" value="">
+                                  <input type="hidden" id="clipperGameX" value="">
+                                  <input type="hidden" id="clipperGameY" value="">
+                                  <select id="clipperCrop" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                    <option value="default">Default</option>
+                                    <option value="fit">Fit to Screen</option>
+                                    <option value="split_left">Split Left</option>
+                                    <option value="split_right">Split Right</option>
+                                    <option value="split_left_mid">Split Left Mid</option>
+                                    <option value="split_right_mid">Split Right Mid</option>
+                                  </select>
+                                </label>
+
+                                <label class="block relative group">
+                                  <div class="flex items-center gap-1 mb-1 h-5">
+                                    <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Facecam Position</span>
+                                    <button type="button" id="btnPosInfo" class="flex items-center text-primary hover:text-white transition-colors" title="Lihat Visualisasi Posisi Output"><span class="material-symbols-outlined text-[14px]">info</span></button>
+                                  </div>
+                                  <select id="clipperFacecamPos" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                    <option value="bottom">Facecam Bottom</option>
+                                    <option value="top">Facecam Top</option>
+                                  </select>
+                                </label>
+
+                                <label class="block relative group">
+                                  <div class="flex items-center gap-1 mb-1 h-5">
+                                    <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Padding</span>
+                                    <span class="material-symbols-outlined text-[14px] text-primary cursor-help flex items-center" title="Durasi tambahan sebelum & sesudah momen agar klip tidak terpotong tiba-tiba.">info</span>
+                                  </div>
+                                  <select id="clipperPadding" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                    <option value="0" selected>No Padding</option>
+                                    <option value="3">3 Seconds</option>
+                                    <option value="5">5 Seconds</option>
+                                    <option value="10">10 Seconds</option>
+                                    <option value="15">15 Seconds</option>
+                                  </select>
+                                </label>
+
+                                <label id="clipperResWrap" class="block relative group">
+                                    <div class="flex items-center gap-1 mb-1 h-5">
+                                      <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Resolution Quality</span>
+                                      <span class="material-symbols-outlined text-[14px] text-primary cursor-help flex items-center" title="Pilih kualitas resolusi untuk klip video (Native)">info</span>
+                                    </div>
+                                    <select id="clipperResolution" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                      <option value="1080" selected>1080p (FHD)</option>
+                                    </select>
+                                </label>
+
+                                <div id="clipperMaxClipsWrap" class="block relative group">
+                                  <div class="flex items-center gap-1 mb-1 h-5">
+                                    <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Max Clips (Waiting List)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-primary cursor-help flex items-center" title="Batas jumlah klip maksimal yang dapat di-generate sekaligus.">info</span>
+                                  </div>
+                                  <div class="flex items-center glass-inner p-[3px] rounded-lg border border-white/5 h-[42px]">
+                                    <button type="button" onclick="const input = document.getElementById('clipperMaxClips'); if(input.value > 1) { input.value = parseInt(input.value) - 1; document.getElementById('lblMaxClipsCounter').textContent = input.value; input.dispatchEvent(new Event('change', {bubbles: true})); }" class="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded hover:bg-red-500/20 text-red-400 transition-colors">
+                                      <span class="material-symbols-outlined text-[16px]">remove</span>
+                                    </button>
+                                    <div class="flex-1 text-center">
+                                      <span id="lblMaxClipsCounter" class="text-sm font-bold text-white">3</span>
+                                    </div>
+                                    <input type="hidden" id="clipperMaxClips" value="3" min="1" max="10" />
+                                    <button type="button" onclick="const input = document.getElementById('clipperMaxClips'); if(input.value < 10) { input.value = parseInt(input.value) + 1; document.getElementById('lblMaxClipsCounter').textContent = input.value; input.dispatchEvent(new Event('change', {bubbles: true})); }" class="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded hover:bg-primary/20 text-primary transition-colors">
+                                      <span class="material-symbols-outlined text-[16px]">add</span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- RESOLUTION QUALITY BUTTONS (Only for 9:16) -->
+                              <div id="clipperResButtonsWrap" class="mt-4 hidden border-t border-white/10 pt-3">
+                                <h4 class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-3 block">RESOLUTION / QUALITY</h4>
+                                <div id="clipperResolutionContainer" class="grid grid-cols-2 gap-3 pb-1">
+                                    <!-- Populated by JS -->
+                                </div>
+                              </div>
+
+                              <!-- Profil Konfigurasi -->
+                              <div class="mt-2 pt-3 border-t border-primary/30">
+                                <div id="clipperBottomGrid" class="grid grid-cols-1 md:grid-cols-1 gap-4 w-full">
+                                  <div id="clipperSaveConfigBlock" class="block relative group">
+                                    <div id="simpanConfigTitle" class="flex items-center gap-1 mb-1 h-5">
+                                      <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">SAVE CONFIGURATION</span>
+                                    </div>
+                                    <div class="grid grid-cols-[1fr_auto] gap-2 w-full">
+                                      <select id="clipperProfileSelect" class="w-full bg-black/50 border border-white/10 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-primary/50">
+                                        <option value="profile1">Profile 1</option>
+                                        <option value="profile2">Profile 2</option>
+                                        <option value="profile3">Profile 3</option>
+                                      </select>
+                                      <button id="clipperSaveConfigBtn" class="bg-primary/20 hover:bg-primary/40 text-primary border border-primary/30 px-4 py-2.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 whitespace-nowrap"><span class="material-symbols-outlined text-[14px]">check</span> Simpan</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <!-- BOTTOM: Multi-Column Settings -->
+                          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch content-start w-full">
+                            
+                            <!-- AI Subtitle Otomatis & Watermark -->
+                            <div id="aiSubtitleBlock" class="glass-inner p-5 rounded-xl !border !border-primary/50 !shadow-[0_0_15px_rgba(2,206,255,0.05)] flex flex-col transition-all duration-300 h-full gap-4">
+                               <h4 class="text-sm font-bold text-white border-b border-primary/30 pb-3 mb-2 flex items-center gap-2 w-full"><span class="material-symbols-outlined text-[18px] text-green-400">subtitles</span> AI Subtitle & Watermark</h4>
+                                                    <div class="grid grid-cols-2 gap-4">
+                                 <!-- Baris 1: Generate Subtitle | AI Whisper Model -->
+                                 <label class="block"><span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-1 block">Generate Subtitle?</span>
+                                   <select id="clipperSubtitle" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                     <option value="n">No</option>
+                                     <option value="y">Yes (Auto Subtitle)</option>
+                                   </select>
+                                 </label>
+                                 
+                                 <label class="block relative group clipper-sub-toggle opacity-30 pointer-events-none">
+                                   <div class="flex items-center gap-1 mb-1">
+                                     <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">AI Provider</span>
+                                     <span class="material-symbols-outlined text-[14px] text-primary cursor-help" title="Select the provider for AI Subtitles.">info</span>
+                                   </div>
+                                   <select id="clipperSubtitleEngine" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                     <option value="local">Local - AI Whisper Mode</option>
+                                     <option value="groq">Groq</option>
+                                     <option value="cloudflare">Cloudflare</option>
+                                   </select>
+                                 </label>
+                               </div>
+
+                               <!-- AI Provider Auth Panels (Full Width) -->
+                               <div id="subtitleEngineAuthPanel" class="w-full space-y-3 clipper-sub-toggle opacity-30 pointer-events-none mb-3">
+                                 <!-- Groq Auth -->
+                                 <div class="engine-groq-panel hidden space-y-3">
+                                   <div class="flex items-center justify-between">
+                                     <span class="text-[11px] uppercase tracking-wider text-primary font-bold">Groq API Key</span>
+                                     <span id="groqKeyStatus" class="text-[11px] text-outline-variant"></span>
+                                   </div>
+                                   <div class="flex gap-2">
+                                     <input type="text" id="groqApiKey" placeholder="gsk_..." 
+                                       class="flex-1 p-2.5 rounded-lg glass-inner text-sm border border-white/10 focus:border-primary/50 outline-none transition-colors" autocomplete="nope" data-lpignore="true" data-1p-ignore="true" />
+                                     <button type="button" id="btnTestGroq" class="px-3 py-2 rounded-lg glass-inner text-xs font-bold text-primary border border-primary/30 hover:bg-primary/10 transition-colors whitespace-nowrap">
+                                       Save / Test
+                                     </button>
+                                   </div>
+                                 </div>
+                                 <!-- Cloudflare Auth -->
+                                 <div class="engine-cf-panel hidden space-y-3">
+                                   <div class="flex items-center justify-between">
+                                     <span class="text-[11px] uppercase tracking-wider text-primary font-bold">Cloudflare Credentials</span>
+                                     <span id="cfKeyStatus" class="text-[11px] text-outline-variant"></span>
+                                   </div>
+                                   <div class="space-y-2">
+                                     <input type="text" id="cfAccountId" placeholder="Account ID" 
+                                       class="w-full p-2.5 rounded-lg glass-inner text-sm border border-white/10 focus:border-primary/50 outline-none transition-colors" autocomplete="nope" data-lpignore="true" data-1p-ignore="true" />
+                                     <div class="flex gap-2">
+                                       <input type="text" id="cfApiToken" placeholder="API Token" 
+                                         class="flex-1 p-2.5 rounded-lg glass-inner text-sm border border-white/10 focus:border-primary/50 outline-none transition-colors" autocomplete="nope" data-lpignore="true" data-1p-ignore="true" />
+                                       <button type="button" id="btnTestCf" class="px-3 py-2 rounded-lg glass-inner text-xs font-bold text-primary border border-primary/30 hover:bg-primary/10 transition-colors whitespace-nowrap">
+                                         Save / Test
+                                       </button>
+                                     </div>
+                                   </div>
+                                 </div>
+                               </div>
+
+                               <div class="grid grid-cols-2 gap-4 mb-1">
+                                 <!-- Left: AI Provider Models -->
+                                 <div id="subtitleEngineModelsPanel" class="w-full clipper-sub-toggle opacity-30 pointer-events-none">
+                                   <!-- Local Model -->
+                                   <div class="engine-local-panel block">
+                                     <label class="block">
+                                       <div class="flex items-center gap-1 mb-1">
+                                         <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">AI Whisper Model</span>
+                                         <span class="material-symbols-outlined text-[14px] text-primary cursor-help" title="'Small' is a good standard. Use 'Base' if slow, or 'Medium'/'Large' for high accuracy.">info</span>
+                                       </div>
+                                       <select id="clipperWhisperModel" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                         <option value="base">Base</option>
+                                         <option value="small" selected>Small</option>
+                                         <option value="medium">Medium</option>
+                                         <option value="large">Large</option>
+                                         <option value="large-v2">Large V2</option>
+                                         <option value="large-v3">Large V3</option>
+                                         <option value="large-v3-turbo">Large V3 Turbo</option>
+                                       </select>
+                                     </label>
+                                   </div>
+
+                                   <!-- Groq Model -->
+                                   <div class="engine-groq-panel hidden">
+                                     <label class="block">
+                                       <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-1 block">AI Whisper Model</span>
+                                       <select id="groqModel" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                         <option value="whisper-large-v3-turbo" selected>Whisper Large V3 Turbo (Recommended)</option>
+                                         <option value="whisper-large-v3">Whisper Large V3 (Max Accuracy)</option>
+                                       </select>
+                                     </label>
+                                   </div>
+
+                                   <!-- Cloudflare Model -->
+                                   <div class="engine-cf-panel hidden">
+                                     <label class="block">
+                                       <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-1 block">AI Whisper Model</span>
+                                       <select id="cfModel" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                         <option value="@cf/openai/whisper-large-v3-turbo" selected>Whisper Large V3 Turbo (Recommended)</option>
+                                         <option value="@cf/openai/whisper">Whisper (Base)</option>
+                                       </select>
+                                     </label>
+                                   </div>
+                                 </div>
+                                 
+                                 <!-- Right: Max Words Per Segment -->
+                                 <div class="block relative group clipper-sub-toggle opacity-30 pointer-events-none flex flex-col justify-end">
+                                   <div class="flex items-center gap-1 mb-1">
+                                     <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Max Words Per Segment</span>
+                                     <span class="material-symbols-outlined text-[14px] text-primary cursor-help" title="Menentukan jumlah maksimal kata yang muncul bersamaan di layar. Angka kecil membuat subtitle muncul sedikit demi sedikit (cepat), angka besar membuat teks panjang bertahan lama.">info</span>
+                                   </div>
+                                   <div class="flex items-center glass-inner p-[5px] rounded-lg border border-white/5 w-full">
+                                     <button type="button" onclick="const input = document.getElementById('clipperMaxWords'); if(input.value > 1) { input.value = parseInt(input.value) - 1; document.getElementById('lblMaxWordsCounter').textContent = input.value; }" class="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded hover:bg-red-500/20 text-red-400 transition-colors">
+                                       <span class="material-symbols-outlined text-[16px]">remove</span>
+                                     </button>
+                                     <div class="flex-1 text-center">
+                                       <span id="lblMaxWordsCounter" class="text-sm font-bold text-white">3</span>
+                                     </div>
+                                     <input type="hidden" id="clipperMaxWords" value="3" />
+                                     <button type="button" onclick="const input = document.getElementById('clipperMaxWords'); if(input.value < 15) { input.value = parseInt(input.value) + 1; document.getElementById('lblMaxWordsCounter').textContent = input.value; }" class="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded hover:bg-primary/20 text-primary transition-colors">
+                                       <span class="material-symbols-outlined text-[16px]">add</span>
+                                     </button>
+                                   </div>
+                                 </div>
+                               </div>
+
+                               <div class="grid grid-cols-2 gap-4 mt-1 clipper-sub-toggle opacity-30 pointer-events-none">
+                                 <label class="block flex flex-col justify-end">
+                                   <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-1 block">Add Watermark?</span>
+                                   <select id="clipperWatermarkToggle" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                     <option value="n">No</option>
+                                     <option value="y">Yes (Add Watermark)</option>
+                                   </select>
+                                 </label>
+
+                                 <div id="clipperWatermarkTextWrapper" class="flex flex-col justify-end opacity-30 pointer-events-none transition-opacity duration-300">
+                                   <label class="block w-full">
+                                     <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-1 block">Watermark Text</span>
+                                     <input type="text" id="clipperWatermarkText" placeholder="Contoh: @GamingChannel" class="w-full p-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-primary" />
+                                   </label>
+                                 </div>
+                               </div>
+
+                               <div id="clipperWatermarkSettings" class="flex flex-col gap-4 opacity-30 pointer-events-none mt-2">
+                                 <!-- Baris 4 & 5 moved up, removed Watermark Text since it's above -->
+                                 <div class="grid grid-cols-2 gap-4 w-full">
+                                   <!-- Baris 4: Font Size | Opacity -->
+                                   <label class="block"><span class="text-[9px] font-bold mb-1 block text-outline-variant flex justify-between"><span>Font Size</span> <span id="lblWmSize">40</span></span>
+                                     <input type="range" id="clipperWmSize" min="10" max="150" value="40" class="w-full accent-primary mt-1" oninput="document.getElementById('lblWmSize').textContent=this.value">
+                                   </label>
+                                   <label class="block"><span class="text-[9px] font-bold mb-1 flex justify-between text-outline-variant"><span>Opacity</span> <span id="lblWmOpacity">50%</span></span>
+                                     <input type="range" id="clipperWmOpacity" min="10" max="100" value="50" class="w-full accent-primary mt-1" oninput="document.getElementById('lblWmOpacity').textContent=this.value+'%'">
+                                   </label>
+
+                                   <!-- Baris 5: Horizontal Axis | Vertical Axis -->
+                                   <label class="block"><span class="text-[9px] font-bold mb-1 block text-outline-variant flex justify-between"><span>Horizontal Axis</span> <span id="lblWmPosX">50%</span></span>
+                                     <input type="range" id="clipperWmPosX" min="0" max="100" value="50" class="w-full accent-primary mt-1" oninput="document.getElementById('lblWmPosX').textContent=this.value+'%'">
+                                   </label>
+                                   <label class="block"><span class="text-[9px] font-bold mb-1 block text-outline-variant flex justify-between"><span>Vertical Axis</span> <span id="lblWmPosY">20%</span></span>
+                                     <input type="range" id="clipperWmPosY" min="0" max="100" value="20" class="w-full accent-primary mt-1" oninput="document.getElementById('lblWmPosY').textContent=this.value+'%'">
+                                   </label>
+                                 </div>
+                               </div>
+                            </div>
+                            
+                            <!-- Kanan: Desain Subtitle & Profil -->
+                            <div class="flex flex-col gap-4 w-full h-full">
+                              <!-- Desain Subtitle -->
+                              <div id="clipperSubSettingsRight" class="glass-inner p-5 rounded-xl !border !border-primary/50 !shadow-[0_0_15px_rgba(2,206,255,0.05)] space-y-4 flex flex-col h-full transition-all duration-300 opacity-30 pointer-events-none">
+                               <h4 class="text-sm font-bold text-white border-b border-primary/30 pb-3 flex items-center gap-2 w-full"><span class="material-symbols-outlined text-[18px] text-pink-400">text_fields</span>Subtitle Settings</h4>
+                               
+                               <!-- NEW: Font Art & Animation -->
+                               <div class="grid grid-cols-2 gap-4 mt-2">
+                                 <div class="block relative group">
+                                   <div class="flex items-center gap-1 mb-1">
+                                     <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Font Art Style</span>
+                                   </div>
+                                   <div class="relative w-full custom-dropdown-container">
+                                     <button type="button" id="btnFontArt" class="w-full p-2.5 rounded-lg glass-inner text-sm flex justify-between items-center bg-black/30 border border-white/10 hover:border-primary/50 transition-colors">
+                                       <span id="lblFontArt" class="truncate font-art-none">Default / None</span>
+                                       <span class="material-symbols-outlined text-[16px]">arrow_drop_down</span>
+                                     </button>
+                                     <div id="menuFontArt" class="absolute top-full left-0 w-full mt-1 glass-dropdown rounded-lg border border-white/10 shadow-2xl z-50 hidden max-h-56 overflow-y-auto custom-scrollbar p-1">
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white/90 hover:bg-white/10 rounded transition-colors" data-value="none">Default / None</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-neon" data-value="neon">Neon Pink</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-yellow" data-value="yellow">Yellow Glow</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-retro" data-value="retro">Retro Pop</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-outline" data-value="outline">Bold Outline</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-glitch" data-value="glitch">Glitch Art</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-pixel" data-value="pixel">Pixel Art</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-graffiti" data-value="graffiti">Graffiti</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-halloween" data-value="halloween">Halloween</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-bubblegum" data-value="bubblegum">Y2K Bubblegum</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-cinematic" data-value="cinematic">Cinematic</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-impact" data-value="impact">Fire / Impact</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-marker" data-value="marker">Marker</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-cyberpunk" data-value="cyberpunk">Cyberpunk</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-elegant" data-value="elegant">Elegant Serif</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-typewriter" data-value="typewriter">Typewriter</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-mecha" data-value="mecha">Mecha / Anime</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-bloody" data-value="bloody">Bloody Horror</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-romantic" data-value="romantic">Romantic Script</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-terminal" data-value="terminal">Hacker Terminal</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-varsity" data-value="varsity">Varsity Sports</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors font-art-kids" data-value="kids">Kids Bubble</button>
+                                     </div>
+                                     <input type="hidden" id="clipperFontArt" value="none">
+                                   </div>
+                                 </div>
+                                 <div class="block relative group">
+                                   <div class="flex items-center gap-1 mb-1">
+                                     <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Animation Style</span>
+                                   </div>
+                                   <div class="relative w-full custom-dropdown-container">
+                                     <button type="button" id="btnAnimStyle" class="w-full p-2.5 rounded-lg glass-inner text-sm flex justify-between items-center bg-black/30 border border-white/10 hover:border-primary/50 transition-colors">
+                                       <span id="lblAnimStyle" class="truncate">None</span>
+                                       <span class="material-symbols-outlined text-[16px]">arrow_drop_down</span>
+                                     </button>
+                                     <div id="menuAnimStyle" class="absolute top-full left-0 w-full mt-1 glass-dropdown rounded-lg border border-white/10 shadow-2xl z-50 hidden max-h-48 overflow-y-auto custom-scrollbar p-1">
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors" data-value="none">None</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors" data-value="fade">Fade In/Out</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors" data-value="pop">Pop / Bounce</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors" data-value="slideup">Slide Up</button>
+                                       <button type="button" class="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/10 rounded transition-colors" data-value="slidedown">Slide Down</button>
+                                     </div>
+                                     <input type="hidden" id="clipperAnimStyle" value="none">
+                                   </div>
+                                 </div>
+                               </div>
+                               <div class="grid grid-cols-2 gap-4 mb-3 border-b border-white/10 pb-4">
+                                 <label class="block relative group">
+                                   <div class="flex items-center gap-1 mb-1">
+                                     <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Anim IN (ms)</span>
+                                   </div>
+                                   <div class="flex items-center justify-between gap-2 mt-2">
+                                     <input type="range" id="clipperAnimIn" min="0" max="1000" step="50" value="150" class="w-full accent-primary" oninput="document.getElementById('lblAnimIn').textContent=this.value+'ms'">
+                                     <span id="lblAnimIn" class="text-[10px] font-bold text-white bg-white/10 px-1 py-0.5 rounded">150ms</span>
+                                   </div>
+                                 </label>
+                                 <label class="block relative group">
+                                   <div class="flex items-center gap-1 mb-1">
+                                     <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Anim OUT (ms)</span>
+                                   </div>
+                                   <div class="flex items-center justify-between gap-2 mt-2">
+                                     <input type="range" id="clipperAnimOut" min="0" max="1000" step="50" value="150" class="w-full accent-primary" oninput="document.getElementById('lblAnimOut').textContent=this.value+'ms'">
+                                     <span id="lblAnimOut" class="text-[10px] font-bold text-white bg-white/10 px-1 py-0.5 rounded">150ms</span>
+                                   </div>
+                                 </label>
+                               </div>
+                               <div class="grid grid-cols-2 gap-4">
+                                 <label class="block"><span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-1 block">Font Subtitle</span>
+                                  <select id="clipperFontSel" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                    <option value="Arial">Arial</option>
+                                    <option value="Montserrat">Montserrat</option>
+                                    <option value="Poppins">Poppins</option>
+                                    <option value="Futura">Futura</option>
+                                    <option value="Roboto">Roboto</option>
+                                    <option value="Helvetica">Helvetica</option>
+                                    <option value="Inter">Inter</option>
+                                    <option value="Open Sans">Open Sans</option>
+                                    <option value="Lato">Lato</option>
+                                    <option value="Oswald">Oswald</option>
+                                    <option value="Raleway">Raleway</option>
+                                    <option value="Nunito">Nunito</option>
+                                  </select>
+                                 </label>
+                                 <label class="block"><span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-1 block">Font Color</span>
+                                   <select id="clipperColorSel" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                     <option value="&HFFFFFF&">White</option>
+                                     <option value="&H00FFFF&">Yellow</option>
+                                     <option value="&H00FF00&">Green</option>
+                                     <option value="&HFFFF00&">Cyan</option>
+                                     <option value="&H0000FF&">Red</option>
+                                   </select>
+                                 </label>
+                               </div>
+
+                               <div class="grid grid-cols-2 gap-4">
+                                  <!-- Row 1: Font Size | Kapitalisasi Teks -->
+                                  <div class="block relative group">
+                                    <div class="flex items-center gap-1 mb-1">
+                                      <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Font Size</span>
+                                    </div>
+                                    <div class="flex items-center glass-inner p-[5px] rounded-lg border border-white/5" onwheel="event.preventDefault(); const input = document.getElementById('clipperFontSize'); let val = parseInt(input.value); if (event.deltaY < 0 && val < 150) { val++; } else if (event.deltaY > 0 && val > 10) { val--; } if (input.value != val) { input.value = val; document.getElementById('lblFontSizeVal').textContent = val; input.dispatchEvent(new Event('input', {bubbles: true})); }">
+                                      <button type="button" onclick="const input = document.getElementById('clipperFontSize'); if(input.value > 10) { input.value = parseInt(input.value) - 1; document.getElementById('lblFontSizeVal').textContent = input.value; input.dispatchEvent(new Event('input', {bubbles: true})); }" class="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded hover:bg-red-500/20 text-red-400 transition-colors">
+                                        <span class="material-symbols-outlined text-[16px]">remove</span>
+                                      </button>
+                                      <div class="flex-1 text-center">
+                                        <span id="lblFontSizeVal" class="text-sm font-bold text-white">70</span>
+                                      </div>
+                                      <input type="hidden" id="clipperFontSize" value="70" min="10" max="150" />
+                                      <button type="button" onclick="const input = document.getElementById('clipperFontSize'); if(input.value < 150) { input.value = parseInt(input.value) + 1; document.getElementById('lblFontSizeVal').textContent = input.value; input.dispatchEvent(new Event('input', {bubbles: true})); }" class="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded hover:bg-primary/20 text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[16px]">add</span>
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <label class="block"><span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-1 block">Casing</span>
+                                    <select id="clipperTextCase" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                      <option value="title">Title Case</option>
+                                      <option value="upper">UPPERCASE</option>
+                                      <option value="lower">lowercase</option>
+                                    </select>
+                                  </label>
+
+                                  <!-- Row 2: Gaya Efek | Warna Efek/Bayangan -->
+                                  <label class="block"><span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-1 block">Outline Style</span>
+                                    <select id="clipperOutlineType" class="w-full p-2.5 rounded-lg glass-inner text-sm">
+                                      <option value="stroke">Stroke</option>
+                                      <option value="glow">Glow</option>
+                                      <option value="shadow">Shadow</option>
+                                      <option value="stroke_shadow">Stroke & Shadow</option>
+                                      <option value="none">None</option>
+                                    </select>
+                                  </label>
+                                  
+                                  <label class="block relative group"><span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold mb-1 block">Outline Color</span>
+                                    <select id="clipperOutlineColor" class="w-full p-2.5 rounded-lg glass-inner text-sm transition-opacity duration-300">
+                                      <option value="&H000000&">Black</option>
+                                      <option value="&HFFFFFF&">White</option>
+                                      <option value="&H0000FF&">Red</option>
+                                      <option value="&H00FF00&">Green</option>
+                                      <option value="&HFF0000&">Blue</option>
+                                      <option value="&H00FFFF&">Yellow</option>
+                                      <option value="&HFFFF00&">Cyan</option>
+                                    </select>
+                                  </label>
+
+                                  <!-- Row 3: Jarak Huruf | Ketebalan Font -->
+                                  <label class="block relative group">
+                                    <div class="flex items-center gap-1 mb-1">
+                                      <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Letter Spacing</span>
+                                    </div>
+                                    <div class="flex items-center justify-between gap-2 mt-2">
+                                      <input type="range" id="clipperLetterSpacing" min="-5" max="15" value="0" class="w-full accent-primary" oninput="document.getElementById('lblLetterSpacing').textContent=this.value+'px'">
+                                      <span id="lblLetterSpacing" class="text-[10px] font-bold text-white bg-white/10 px-1 py-0.5 rounded">0px</span>
+                                    </div>
+                                  </label>
+                                  
+                                  <label class="block relative group">
+                                    <div class="flex items-center gap-1 mb-1">
+                                      <span class="text-[11px] uppercase tracking-wider text-outline-variant font-bold block">Font Weight</span>
+                                    </div>
+                                    <div class="flex items-center justify-between gap-2 mt-2">
+                                      <input type="range" id="clipperFontWeight" min="100" max="900" step="10" value="700" class="w-full accent-primary" oninput="document.getElementById('lblFontWeight').textContent=this.value">
+                                      <span id="lblFontWeight" class="text-[10px] font-bold text-white bg-white/10 px-1 py-0.5 rounded min-w-[32px] text-center">700</span>
+                                    </div>
+                                  </label>
+                               </div>
+                               
+                               <!-- Compact Slider Row for Subtitle -->
+                               <div class="grid grid-cols-2 gap-3 w-full mt-3 pt-2">
+                                 <label class="block"><span class="text-[9px] font-bold mb-1 block text-outline-variant flex justify-between"><span>Horizontal Axis</span> <span id="lblSubPosX">50%</span></span>
+                                   <input type="range" id="clipperPosX" min="0" max="100" value="50" class="w-full accent-primary" oninput="document.getElementById('lblSubPosX').textContent=this.value+'%'">
+                                 </label>
+                                 <label class="block"><span class="text-[9px] font-bold mb-1 block text-outline-variant flex justify-between"><span>Vertical Axis</span> <span id="lblSubPosY">80%</span></span>
+                                   <input type="range" id="clipperPosY" min="0" max="100" value="80" class="w-full accent-primary" oninput="document.getElementById('lblSubPosY').textContent=this.value+'%'">
+                                 </label>
+                               </div>
+                            </div>
+                            
+                            </div> <!-- End of Right Column Wrapper -->
+                            
+                          </div>
+                        </div>
+                        
+                        <!-- ROW 4: Generate Button --><!-- ROW 4: Generate Button -->
+                        <div class="mt-6 w-full pt-4 border-t border-white/10">
+                            <button id="clipperStartBtn" class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-button text-[14px] py-3 rounded-xl flex items-center justify-center gap-2 glow-hover transition-all active:scale-[0.98]">
+                              <span class="material-symbols-outlined font-bold">content_cut</span>
+                              Export Clips
+                            </button>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </section>
+
+                    <!-- Progress panel -->
+                    <div id="clipperProgressPanel" class="hidden mt-6 p-6 rounded-2xl glass-inner shadow-2xl relative overflow-hidden">
+                      <div class="flex justify-between items-center mb-3">
+                        <p id="clipperProgressText" class="text-sm font-medium text-on-surface-variant tracking-wide">Progress 0% - waiting</p>
+                      </div>
+                      <div class="h-1.5 w-full bg-black/40 rounded-full overflow-hidden relative">
+                        <!-- Progress Bar -->
+                        <div id="clipperProgressBar" class="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-300 relative w-[0%]" style="box-shadow: 0 0 15px rgba(200,100,255,0.5);">
+                          <div class="absolute inset-0 bg-white/20 w-full h-full animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+                        </div>
+                      </div>
+                      
+                      <div id="clipperSegmentsProgress" class="mt-4 flex flex-col gap-2 max-h-48 overflow-y-auto hidden">
+                        <!-- Cards will be injected here dynamically -->
+                      </div>
+                      
+                      <button id="clipperCancelBtn" class="w-full mt-4 bg-transparent border border-primary/50 text-primary/80 font-button text-[16px] py-3 rounded-xl flex items-center justify-center gap-3 transition-all hover:border-[#B64949] hover:text-[#B64949] active:scale-[0.98]">
+                          <span class="material-symbols-outlined">cancel</span>
+                          <span>Cancel Clipping</span>
+                      </button>
+                    </div>
+
+                    <!-- Output panel -->
+                    <section id="clipperOutputs" class="space-y-2 pt-2"></section>
+                    </div>
+                </div>
+
+
+
+                <!-- Storage Section -->
+                <div id="storageSection" class="glass-panel rounded-xl p-4 md:p-stack-lg flex-grow hidden border border-[#06B9F9]/60">
+                    <div class="flex flex-col md:flex-row md:justify-between items-start md:items-center gap-3 mb-4 border-b border-[#06B9F9]/30 pb-4 md:pb-6">
+                        <h3 class="text-on-surface font-h2 text-[14px] md:text-[18px] flex items-center gap-2 m-0 leading-tight">
+                            <span class="material-symbols-outlined text-secondary text-[16px] md:text-[20px]">folder</span>
+                            <span class="flex flex-col md:flex-row md:items-center">
+                                <span>Download File</span>
+                                <span class="text-white/50 text-[10px] md:text-[18px] md:ml-1"></span>
+                            </span>
+                        </h3>
+                        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <!-- Auto-Save Toggle -->
+                            <div class="flex items-center gap-2 bg-white/5 px-3 py-1.5 md:py-2 rounded-lg border border-white/5 flex-grow justify-between md:justify-start">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-primary text-[14px] md:text-[16px]">save_alt</span>
+                                    <span class="text-[11px] md:text-sm text-white/80 font-medium">Auto-Save HP</span>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer ml-2">
+                                    <input type="checkbox" id="autoSaveToggle" class="sr-only peer">
+                                    <div class="w-8 h-4 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <div class="relative shrink-0" id="storageCategoryDropdownWrapper">
+                                <button type="button" id="storageCategoryBtn" class="glass-inner text-white/80 border border-white/10 rounded-lg px-3 py-1.5 md:py-2 text-[11px] md:text-sm outline-none hover:border-primary cursor-pointer transition-colors flex justify-between items-center gap-2 min-w-[130px] w-full">
+                                    <span id="storageCategoryLabel" class="truncate">All</span>
+                                    <span class="material-symbols-outlined text-[16px]">expand_more</span>
+                                </button>
+                                <div id="storageCategoryMenu" class="hidden absolute right-0 mt-1 w-full glass-inner border border-white/10 rounded-lg shadow-2xl flex flex-col overflow-hidden z-[100] backdrop-blur-md">
+                                    <button type="button" class="storage-cat-opt px-3 py-2 text-[11px] md:text-sm text-white hover:bg-white/10 text-left transition-colors" data-value="All">All</button>
+                                    <button type="button" class="storage-cat-opt px-3 py-2 text-[11px] md:text-sm text-white hover:bg-white/10 text-left transition-colors" data-value="Full Downloads">Full Downloads</button>
+                                    <button type="button" class="storage-cat-opt px-3 py-2 text-[11px] md:text-sm text-white hover:bg-white/10 text-left transition-colors" data-value="Trim">Trim</button>
+                                    <button type="button" class="storage-cat-opt px-3 py-2 text-[11px] md:text-sm text-white hover:bg-white/10 text-left transition-colors" data-value="Clips">Clips</button>
+                                    <button type="button" class="storage-cat-opt px-3 py-2 text-[11px] md:text-sm text-white hover:bg-white/10 text-left transition-colors" data-value="Dead Air Cuts">Dead Air</button>
+                                </div>
+                            </div>
+                            <select id="storageCategoryFilter" class="hidden">
+                                <option value="All">All</option>
+                                <option value="Full Downloads">Full Downloads</option>
+                                <option value="Trim">Trim</option>
+                                <option value="Clips">Clips</option>
+                                <option value="Dead Air Cuts">Dead Air</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="storageListContainer" class="flex flex-col gap-3 max-h-[60vh] overflow-y-auto md:pr-2 hide-scrollbar">
+                        <p class="text-white/40 text-sm text-center py-8">Loading file...</p>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-8 pt-10 pb-12 border-t border-primary/30 glass-panel relative z-10 w-full shadow-[0_-10px_30px_rgba(0,0,0,0.2)] bg-black/20">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <!-- Tech Stack Section -->
+            <div class="flex flex-col items-center justify-center pt-2 md:pt-4 pb-6 md:pb-10">
+                <img src="assets/Stack.png" alt="Tech Stack: Google Antigravity, Node.js, yt-dlp, FFmpeg" class="w-full max-w-2xl md:max-w-4xl h-auto object-contain grayscale opacity-60 filter drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] -my-4 md:-my-12 relative z-0" />
+            </div>
+
+            <!-- Premium Separator (Footer Top Border) -->
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-white to-transparent mt-0 mb-8 shadow-[0_0_12px_rgba(255,255,255,0.5)] relative z-20"></div>
+
+            <div class="flex flex-col md:flex-row flex-wrap justify-center items-start gap-10 md:gap-20 w-full max-w-6xl mx-auto">
+                <!-- Brand Column -->
+                <div class="space-y-3">
+                    <h3 class="text-lg text-white font-bold tracking-wide font-['Space_Grotesk']">FythhX<span class="text-primary">.</span></h3>
+                    <p class="text-xs text-white/60 font-light leading-relaxed max-w-xs">
+                        Tools Editing For Content Creator Clipper Enthusiast.
+                    </p>
+                    <div class="flex gap-5 pt-2 items-center">
+                        <a href="https://www.linkedin.com/in/mansl-sw/" target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-[#0a66c2] transition-colors flex items-center gap-2" title="LinkedIn">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-xs">LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/Fythh" target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-white transition-colors flex items-center gap-2" title="GitHub">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-xs">GitHub</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Social Links Column -->
+                <div>
+                    <h4 class="text-sm text-white/80 font-medium mb-3">Social Media</h4>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="https://www.youtube.com/@FythhXMann" target="_blank" 
+                               class="text-xs text-white/60 hover:text-primary transition flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                YouTube
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/mansl.sw" target="_blank"
+                               class="text-xs text-white/60 hover:text-primary transition flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z"/></svg>
+                                Instagram
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/profile.php?id=61588510407277" target="_blank"
+                               class="text-xs text-white/60 hover:text-primary transition flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                Facebook
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Column -->
+                <div>
+                    <h4 class="text-sm text-white/80 font-medium mb-3">Contact</h4>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="mailto:fythhx@gmail.com" 
+                               class="text-xs text-white/60 hover:text-primary transition flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                fythhx@gmail.com
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://saweria.co/fythhx" target="_blank"
+                               class="text-xs text-white/60 hover:text-primary transition flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                Saweria (Donate)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Copyright Column -->
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-3 mb-3">
+                        <h4 class="text-sm text-white/80 font-medium">Legal</h4>
+                    </div>
+
+                    <p class="text-xs text-white/60 font-light leading-relaxed">
+                        © 2026 <span id="footerHackerText" class="font-bold cursor-default text-white inline-block">Fythh.</span><br>All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Template for Toasts -->
+    <template id="toastTemplate">
+        <div class="toast-item glass-panel glass-inner border-l-4 p-4 rounded shadow-lg flex items-start gap-3 min-w-[300px] toast-enter">
+            <span class="material-symbols-outlined toast-icon mt-0.5"></span>
+            <div class="flex-grow">
+                <h4 class="toast-title font-bold text-sm mb-1"></h4>
+                <p class="toast-message text-xs opacity-80"></p>
+            </div>
+            <button class="toast-close text-outline-variant hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-sm">close</span>
+            </button>
+        </div>
+    </template>
+
+
+  <!-- Modal Visualization Crop Mode -->
+  <div id="cropModal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-[100] hidden opacity-0 transition-opacity duration-300 p-4 backdrop-blur-sm">
+    <div class="bg-surface p-6 rounded-2xl w-full max-w-4xl border border-white/10 shadow-2xl relative">
+      <button id="closeCropModal" class="absolute top-4 right-4 text-white/50 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <h3 class="text-xl font-bold mb-6 text-on-surface">Visualisasi Mode Crop (Sumber Video Landscape)</h3>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <!-- Default -->
+        <div class="flex flex-col items-center">
+          <div class="w-32 h-18 bg-black border-2 border-white/20 rounded mb-2 relative flex items-center justify-center overflow-hidden" style="aspect-ratio: 16/9;">
+            <div class="absolute w-[40%] h-full bg-primary/40 flex items-center justify-center text-[8px] font-bold text-center">Center<br/>Fit</div>
+          </div>
+          <span class="text-xs font-bold text-center">Default</span>
+        </div>
+        <!-- Split Left -->
+        <div class="flex flex-col items-center">
+          <div class="w-32 h-18 bg-black border-2 border-white/20 rounded mb-2 relative flex items-center justify-center overflow-hidden" style="aspect-ratio: 16/9;">
+            <div class="absolute w-[40%] h-full bg-blue-500/40 flex items-center justify-center text-[8px] font-bold text-center">Gameplay</div>
+            <div class="absolute w-[20%] h-[35%] bg-green-500/60 bottom-0 left-0 flex items-center justify-center text-[8px] font-bold">Cam</div>
+          </div>
+          <span class="text-xs font-bold text-center">Split Left</span>
+        </div>
+        <!-- Split Right -->
+        <div class="flex flex-col items-center">
+          <div class="w-32 h-18 bg-black border-2 border-white/20 rounded mb-2 relative flex items-center justify-center overflow-hidden" style="aspect-ratio: 16/9;">
+            <div class="absolute w-[40%] h-full bg-blue-500/40 flex items-center justify-center text-[8px] font-bold text-center">Gameplay</div>
+            <div class="absolute w-[20%] h-[35%] bg-green-500/60 bottom-0 right-0 flex items-center justify-center text-[8px] font-bold">Cam</div>
+          </div>
+          <span class="text-xs font-bold text-center">Split Right</span>
+        </div>
+        <!-- Split Left Mid -->
+        <div class="flex flex-col items-center">
+          <div class="w-32 h-18 bg-black border-2 border-white/20 rounded mb-2 relative flex items-center justify-center overflow-hidden" style="aspect-ratio: 16/9;">
+            <div class="absolute w-[40%] h-full bg-blue-500/40 flex items-center justify-center text-[8px] font-bold text-center">Gameplay</div>
+            <div class="absolute w-[20%] h-[35%] bg-purple-500/60 left-0 top-1/2 -translate-y-1/2 flex items-center justify-center text-[8px] font-bold">Cam</div>
+          </div>
+          <span class="text-xs font-bold text-center">Split Left Mid</span>
+        </div>
+        <!-- Split Right Mid -->
+        <div class="flex flex-col items-center">
+          <div class="w-32 h-18 bg-black border-2 border-white/20 rounded mb-2 relative flex items-center justify-center overflow-hidden" style="aspect-ratio: 16/9;">
+            <div class="absolute w-[40%] h-full bg-blue-500/40 flex items-center justify-center text-[8px] font-bold text-center">Gameplay</div>
+            <div class="absolute w-[20%] h-[35%] bg-purple-500/60 right-0 top-1/2 -translate-y-1/2 flex items-center justify-center text-[8px] font-bold">Cam</div>
+          </div>
+          <span class="text-xs font-bold text-center">Split Right Mid</span>
+        </div>
+      </div>
+      <p class="text-xs text-on-surface-variant mt-4 text-center">Visualisasi di atas menunjukkan <b>dari mana</b> area Facecam dan Gameplay dipotong pada video asli.</p>
+    </div>
+  </div>
+
+  <!-- Modal Visualization Facecam Position Output -->
+  <div id="posModal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-[100] hidden opacity-0 transition-opacity duration-300 p-4 backdrop-blur-sm">
+    <div class="bg-surface p-6 rounded-2xl w-full max-w-lg border border-white/10 shadow-2xl relative">
+      <button id="closePosModal" class="absolute top-4 right-4 text-white/50 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <h3 class="text-xl font-bold mb-6 text-on-surface text-center">Visualisasi Hasil Output (9:16)</h3>
+      <div class="flex justify-center gap-10">
+        <!-- Posisi Face Cam Dibawah -->
+        <div class="flex flex-col items-center">
+          <div class="w-24 h-40 bg-black border-2 border-white/20 rounded mb-2 flex flex-col overflow-hidden">
+            <div class="w-full h-2/3 bg-blue-500/40 flex items-center justify-center text-[10px] font-bold text-center">Bagian<br/>Tengah<br/>(Gameplay)</div>
+            <div class="w-full h-1/3 bg-green-500/40 flex items-center justify-center text-[10px] font-bold text-center">Bagian<br/>Face Cam</div>
+          </div>
+          <span class="text-xs font-bold text-center">Posisi Dibawah</span>
+        </div>
+        <!-- Posisi Face Cam Diatas -->
+        <div class="flex flex-col items-center">
+          <div class="w-24 h-40 bg-black border-2 border-white/20 rounded mb-2 flex flex-col overflow-hidden">
+            <div class="w-full h-1/3 bg-green-500/40 flex items-center justify-center text-[10px] font-bold text-center">Bagian<br/>Face Cam</div>
+            <div class="w-full h-2/3 bg-blue-500/40 flex items-center justify-center text-[10px] font-bold text-center">Bagian<br/>Tengah<br/>(Gameplay)</div>
+          </div>
+          <span class="text-xs font-bold text-center">Posisi Diatas</span>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+  </div>
+
+  <!-- Storage Media Player Modal -->
+  <div id="storagePlayerModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-6 backdrop-blur-md bg-black/40 transition-opacity">
+      <div class="glass-panel w-full max-w-3xl rounded-3xl shadow-2xl border border-white/10 overflow-hidden flex flex-col transform scale-100 transition-all duration-300">
+          <!-- Header -->
+          <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-white/5">
+              <div class="flex items-center gap-3 overflow-hidden">
+                  <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <span class="material-symbols-outlined text-primary text-sm">play_circle</span>
+                  </div>
+                  <h3 id="storagePlayerTitle" class="text-white text-base md:text-lg font-bold truncate pr-4">Media Player</h3>
+              </div>
+              <button id="closeStoragePlayer" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors flex-shrink-0">
+                  <span class="material-symbols-outlined text-sm">close</span>
+              </button>
+          </div>
+          <!-- Media Area -->
+          <div id="storagePlayerMediaArea" class="relative bg-black/40 w-full aspect-video md:aspect-auto md:h-[400px] flex items-center justify-center overflow-hidden">
+              <video id="storageVideoPlayer" class="w-full h-full object-contain hidden" playsinline></video>
+              
+              <!-- MP3 Audio Visualizer Wrapper -->
+              <div id="storageAudioWrapper" class="w-full h-full hidden flex-col items-center justify-center p-6 bg-gradient-to-br from-[#0f172a] to-[#1e1e1e] relative">
+                  <!-- Decorative Background Glow -->
+                  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[80px] pointer-events-none"></div>
+                  
+                  <!-- Gradient Thumbnail -->
+                  <div class="w-32 h-32 md:w-48 md:h-48 rounded-2xl bg-gradient-to-tr from-primary via-secondary to-pink-500 shadow-2xl flex items-center justify-center mb-6 relative overflow-hidden z-10 hover:scale-105 transition-transform duration-500">
+                      <div class="absolute inset-0 bg-black/20"></div>
+                      <span class="material-symbols-outlined text-white/80 text-6xl drop-shadow-lg z-10">music_note</span>
+                  </div>
+                  
+                  <!-- Spectrum Canvas -->
+                  <canvas id="storageAudioCanvas" class="w-full max-w-md h-16 md:h-20 z-10"></canvas>
+              </div>
+
+              <audio id="storageAudioPlayer" class="hidden"></audio>
+          </div>
+          <!-- Controls Area -->
+          <div class="p-6 bg-white/5 flex flex-col gap-5 border-t border-white/10">
+              <!-- Progress -->
+              <div class="flex items-center gap-4">
+                  <span id="storagePlayerCurrentTime" class="text-xs text-white/50 w-10 text-right font-mono">0:00</span>
+                  <div class="flex-grow relative h-1.5 md:h-2 bg-white/10 rounded-full cursor-pointer group" id="storagePlayerProgressContainer">
+                      <div id="storagePlayerProgressBar" class="absolute top-0 left-0 h-full bg-primary rounded-full w-0 pointer-events-none transition-all duration-100 group-hover:bg-secondary">
+                          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-glow"></div>
+                      </div>
+                  </div>
+                  <span id="storagePlayerDuration" class="text-xs text-white/50 w-10 font-mono">0:00</span>
+              </div>
+              
+              <!-- Buttons -->
+              <div class="flex flex-row items-center justify-between w-full gap-2">
+                  <!-- Left: Volume -->
+                  <div class="flex items-center justify-start flex-1 gap-1 md:gap-2">
+                      <button id="storagePlayerMuteBtn" class="text-white/70 hover:text-primary transition-colors p-1 md:p-2"><span class="material-symbols-outlined text-lg md:text-2xl">volume_up</span></button>
+                      <input type="range" id="storagePlayerVolume" min="0" max="1" step="0.05" value="1" class="w-12 md:w-24 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer focus:outline-none hover:bg-white/20 transition-colors">
+                  </div>
+                  
+                  <!-- Center: Playback -->
+                  <div class="flex items-center justify-center gap-1 md:gap-4 flex-none">
+                      <button id="storagePlayerPrevBtn" class="text-white/80 hover:text-primary transition-colors p-1 md:p-2"><span class="material-symbols-outlined text-2xl md:text-3xl">skip_previous</span></button>
+                      <button id="storagePlayerPlayBtn" class="text-white bg-primary hover:bg-primary-hover rounded-full w-12 h-12 md:w-14 md:h-14 transition-transform hover:scale-105 active:scale-95 flex items-center justify-center shadow-[0_0_15px_rgba(6,185,249,0.4)] mx-1 md:mx-2">
+                          <span class="material-symbols-outlined text-3xl md:text-4xl">play_arrow</span>
+                      </button>
+                      <button id="storagePlayerNextBtn" class="text-white/80 hover:text-primary transition-colors p-1 md:p-2"><span class="material-symbols-outlined text-2xl md:text-3xl">skip_next</span></button>
+                  </div>
+                  
+                  <!-- Right: Repeat -->
+                  <div class="flex items-center justify-end flex-1">
+                      <button id="storagePlayerRepeatBtn" class="text-white/50 hover:text-white transition-colors flex items-center justify-center p-2 rounded-full hover:bg-white/5 relative" title="Repeat Off">
+                          <span class="material-symbols-outlined text-[20px] md:text-[24px]" id="storagePlayerRepeatIcon">repeat</span>
+                          <span id="storagePlayerRepeatBadge" class="absolute -top-1 -right-1 text-[9px] font-bold bg-primary text-on-primary rounded px-1 min-w-[14px] text-center hidden">1</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/60 z-[100] hidden items-center justify-center p-4 backdrop-blur-sm">
+        <div class="glass-panel p-4 md:p-5 rounded-2xl max-w-sm w-full border border-white/10 shadow-2xl relative">
+            <button id="closeSettingsBtn" class="absolute top-3 right-3 text-white/50 hover:text-white transition-colors outline-none">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+            <div class="border-b-2 border-primary/80 pb-3 mb-4">
+                <h2 class="text-base font-h2 text-primary flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[20px]">settings</span> Global Settings
+                </h2>
+            </div>
+            
+            <div class="flex flex-col gap-4">
+                <!-- Browser Cookies -->
+                <div class="border border-white/20 rounded-xl p-3 bg-white/5">
+                    <div class="border-b border-white/20 pb-1.5 mb-2">
+                        <label class="block text-[13px] text-white/90 font-medium tracking-wide">Allow Cookies</label>
+                    </div>
+                    <p class="text-[11px] text-white/50 mb-3 leading-relaxed">
+                        Select the browser you use to login to Instagram/TikTok. FythhX will read your login session automatically when downloading.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <div class="relative flex-1" id="customBrowserDropdown">
+                            <button type="button" id="browserSelectBtn" class="w-full glass-inner text-on-surface rounded-lg py-2 px-3 hover:border-secondary transition-all cursor-pointer outline-none flex justify-between items-center glass-panel text-[12px]">
+                                <span id="browserSelectLabel">No Cookies (Default)</span>
+                                <span class="material-symbols-outlined text-outline-variant pointer-events-none transition-transform duration-200 text-[18px]" id="browserSelectIcon">expand_more</span>
+                            </button>
+                            <div id="browserDropdownMenu" class="absolute z-50 w-full mt-1.5 glass-dropdown rounded-lg shadow-2xl custom-select-menu closed flex flex-col overflow-hidden max-h-48 overflow-y-auto">
+                                <button type="button" class="browser-option w-full text-left px-3 py-2 text-[12px] text-white hover:bg-secondary/20 hover:text-secondary transition-colors" data-value="none">No Cookies (Default)</button>
+                                <button type="button" class="browser-option w-full text-left px-3 py-2 text-[12px] text-white hover:bg-secondary/20 hover:text-secondary transition-colors" data-value="chrome">Google Chrome</button>
+                                <button type="button" class="browser-option w-full text-left px-3 py-2 text-[12px] text-white hover:bg-secondary/20 hover:text-secondary transition-colors" data-value="edge">Microsoft Edge</button>
+                                <button type="button" class="browser-option w-full text-left px-3 py-2 text-[12px] text-white hover:bg-secondary/20 hover:text-secondary transition-colors" data-value="firefox">Mozilla Firefox</button>
+                                <button type="button" class="browser-option w-full text-left px-3 py-2 text-[12px] text-white hover:bg-secondary/20 hover:text-secondary transition-colors" data-value="brave">Brave Browser</button>
+                                <button type="button" class="browser-option w-full text-left px-3 py-2 text-[12px] text-white hover:bg-secondary/20 hover:text-secondary transition-colors" data-value="opera">Opera</button>
+                                <button type="button" class="browser-option w-full text-left px-3 py-2 text-[12px] text-white hover:bg-secondary/20 hover:text-secondary transition-colors" data-value="vivaldi">Vivaldi</button>
+                            </div>
+                            <input type="hidden" id="browserSelect" value="none">
+                        </div>
+                        
+                        <button id="saveSettingsBtn" class="shrink-0 text-primary hover:text-primary-container hover:drop-shadow-[0_0_8px_rgba(2,206,255,0.8)] transition-all hover:scale-110 active:scale-95 outline-none flex items-center justify-center p-1.5" title="Simpan Pengaturan">
+                            <span class="material-symbols-outlined text-[20px]">task_alt</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Clear Cache -->
+                <div class="border border-white/20 rounded-xl p-3 bg-white/5">
+                    <div class="border-b border-white/20 pb-1.5 mb-2">
+                        <label class="block text-[13px] text-white/90 font-medium tracking-wide">Clear Cache</label>
+                    </div>
+                    <div class="flex items-center justify-between gap-3">
+                        <p class="text-[11px] text-white/50 leading-relaxed flex-1">
+                            Delete all temporary files (thumbnails, filmstrips, raw audio) to free up disk space.
+                        </p>
+                        <button id="clearCacheBtn" class="shrink-0 text-error hover:text-error-container hover:drop-shadow-[0_0_8px_rgba(255,180,171,0.8)] transition-all hover:scale-110 active:scale-95 outline-none flex items-center justify-center p-1.5" title="Clear Cache">
+                            <span class="material-symbols-outlined text-[20px]">delete</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- About Us -->
+                <div class="border border-white/20 rounded-xl p-3 bg-white/5 flex flex-col gap-2">
+                    <div class="border-b border-white/20 pb-1.5 mb-1">
+                        <label class="block text-[13px] text-white/90 font-medium tracking-wide">About FythhX</label>
+                    </div>
+                    <p class="text-[11px] text-white/70 leading-relaxed">
+                        FythhX is an all-in-one tool running locally on your computer. It is designed specifically for creators to help download, trim videos directly from the server (without full download), and find important moments (Heatmap).
+                    </p>
+                    <div class="border-t border-white/10 pt-2 mt-1">
+                        <p class="text-center text-white/40 text-[9px] font-mono leading-relaxed">
+                            &copy; 2026 FythhX.<br>All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <!-- Scripts -->
+  <script src="timeline/TimelineEngine.js"></script>
+  <script src="js/storage.js?v=1.1"></script>
+  <script src="js/multiTrimLogic.js?v=1.1"></script>
+  <script src="js/apiKeyValidator.js?v=1.1"></script>
+  <script src="js/clipper.js?v=1.1"></script>
+  <script src="app.js?v=1.1"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const inputField = document.getElementById("urlInput");
+      if (!inputField) return;
+      
+      let textToType = 'Paste your YouTube, Instagram, or TikTok link here...';
+      let charIndex = 0;
+      let isTyping = true;
+      let typingInterval = null;
+      let isUserFocused = false;
+
+      // Listen for language changes to update typing text
+      window.addEventListener('languageChanged', () => {
+        textToType = 'Paste link YouTube, Instagram, TikTok disini...';
+        if (isUserFocused) {
+          inputField.setAttribute("placeholder", textToType);
+        }
+      });
+
+      function startTypingEffect() {
+        if (isUserFocused || inputField.value !== "") return;
+        
+        clearInterval(typingInterval);
+        
+        typingInterval = setInterval(() => {
+          if (isUserFocused || inputField.value !== "") {
+            clearInterval(typingInterval);
+            inputField.setAttribute("placeholder", textToType);
+            return;
+          }
+
+          if (isTyping) {
+            if (charIndex <= textToType.length) {
+              inputField.setAttribute("placeholder", textToType.substring(0, charIndex) + "|");
+              charIndex++;
+            } else {
+              isTyping = false;
+              clearInterval(typingInterval);
+              setTimeout(startTypingEffect, 2500); // Wait 2.5s before deleting
+            }
+          } else {
+            if (charIndex >= 0) {
+              inputField.setAttribute("placeholder", textToType.substring(0, charIndex) + "|");
+              charIndex--;
+            } else {
+              isTyping = true;
+              clearInterval(typingInterval);
+              setTimeout(startTypingEffect, 800); // Wait before re-typing
+            }
+          }
+        }, 60); // typing speed
+      }
+
+      setTimeout(startTypingEffect, 1000);
+
+      inputField.addEventListener("focus", () => {
+        isUserFocused = true;
+        clearInterval(typingInterval);
+        inputField.setAttribute("placeholder", textToType);
+      });
+
+      inputField.addEventListener("blur", () => {
+        isUserFocused = false;
+        if (inputField.value === "") {
+          charIndex = 0;
+          isTyping = true;
+          startTypingEffect();
+        }
+      });
+    });
+  </script>
+
+  <script>
+    // Dynamic Loader Text Rotation
+    document.addEventListener("DOMContentLoaded", () => {
+      const loaderContainer = document.getElementById("loaderContainer");
+      const loaderDynamicText = document.getElementById("loaderDynamicText");
+      
+    let loadingPhrases = [
+      'ANALYZING LINK...',
+      'FETCHING VIDEO METADATA...',
+      'FINDING THE BEST MOMENTS...',
+      'CONVERTING FORMAT...',
+      'PLEASE WAIT, PROCESSING IS IN PROGRESS...',
+      'PREPARING DOWNLOAD...'
+    ];
+
+      window.addEventListener('languageChanged', () => {
+        loadingPhrases = [
+          'MENGANALISA TAUTAN...',
+          'MENGAMBIL METADATA VIDEO...',
+          'MENCARI MOMEN TERBAIK...',
+          'MENGONVERSI FORMAT...',
+          'HARAP BERSABAR, PROSES SEDANG BERJALAN...',
+          'MENYIAPKAN HASIL UNDUHAN...'
+        ];
+        if (!loaderContainer.classList.contains("hidden")) {
+           loaderDynamicText.innerText = loadingPhrases[phraseIndex % loadingPhrases.length];
+        }
+      });
+      
+      let phraseIndex = 0;
+      let textInterval;
+
+      // Observe when loaderContainer is shown/hidden
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === "attributes" && mutation.attributeName === "class") {
+            if (!loaderContainer.classList.contains("hidden")) {
+              // Loader is shown, start rotating text
+              phraseIndex = 0;
+              loaderDynamicText.innerText = loadingPhrases[phraseIndex];
+              
+              clearInterval(textInterval);
+              textInterval = setInterval(() => {
+                phraseIndex = (phraseIndex + 1) % loadingPhrases.length;
+                loaderDynamicText.style.opacity = 0; // Fade out slightly for transition
+                setTimeout(() => {
+                  loaderDynamicText.innerText = loadingPhrases[phraseIndex];
+                  loaderDynamicText.style.opacity = 1;
+                }, 200);
+              }, 2500); // Change text every 2.5 seconds
+            } else {
+              // Loader is hidden, stop rotating
+              clearInterval(textInterval);
+            }
+          }
+        });
+      });
+
+      observer.observe(loaderContainer, { attributes: true });
+    });
+  </script>
+  <script src="js/multiTrimLogic.js"></script>
+    <!-- Confirm Delete Modal -->
+    <div id="confirmModal" class="fixed inset-0 bg-black/80 z-[110] hidden items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300 opacity-0">
+        <div id="confirmModalContent" class="glass-panel glass-inner border border-red-500/30 rounded-xl p-6 max-w-sm w-full shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="flex items-center gap-3 mb-4 text-error">
+                <span class="material-symbols-outlined text-[28px]">warning</span>
+                <h3 class="font-h2 text-lg">Delete File?</h3>
+            </div>
+            <p class="text-white/70 text-sm mb-6" id="confirmModalText">Are you sure you want to permanently delete this file from the server?</p>
+            <div class="flex justify-end gap-3">
+                <button id="cancelConfirmBtn" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/80 transition-colors text-sm">Cancel</button>
+                <button id="okConfirmBtn" class="px-4 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/40 text-red-400 border border-red-500/30 transition-colors text-sm flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[16px]">delete</span> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

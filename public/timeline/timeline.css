@@ -1,0 +1,647 @@
+/* Timeline Engine Modular Styles
+ * Follows the app's design language: dark glass panels, primary = #ddb7ff
+ */
+.timeline-engine-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  font-family: inherit;
+  color: white;
+  user-select: none;
+  --tl-primary: #60a5fa;         /* matches app --primary */
+  --tl-secondary: #4cd7f6;       /* matches app --secondary */
+  --tl-bg: rgba(255, 255, 255, 0.04);
+  --tl-border: rgba(255, 255, 255, 0.08);
+  --tl-handle-width: 14px;
+}
+
+/* ── Header & Controls ──────────────────────── */
+.tl-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tl-controls, .tl-presets {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Buttons — styled to match app's glass-inner pattern */
+.tl-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  font-family: inherit;
+  font-weight: 500;
+}
+.tl-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+.tl-btn * {
+  pointer-events: none;
+}
+.tl-btn.active {
+  background: rgba(96, 165, 250, 0.15);
+  color: var(--tl-primary);
+  border-color: rgba(96, 165, 250, 0.3);
+}
+.tl-btn.active:hover {
+  background: rgba(96, 165, 250, 0.22);
+}
+
+/* ── Time Inputs ────────────────────────────── */
+.tl-time-inputs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tl-time-inputs label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+.tl-time-inputs input {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--tl-border);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  width: 106px;
+  text-align: center;
+  font-size: 12px;
+  font-family: 'Courier New', monospace;
+  transition: border-color 0.15s;
+  outline: none;
+}
+.tl-time-inputs input:focus {
+  border-color: rgba(96, 165, 250, 0.4);
+}
+
+/* 🔹🔹 Timeline Scroll Area (for Zoom) 🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹 */
+.tl-scroll-area {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-top: 32px; /* Space for tooltip */
+  margin-top: -32px;
+  position: relative;
+}
+
+/* Custom scrollbar for scroll area */
+.tl-scroll-area::-webkit-scrollbar {
+  height: 6px;
+}
+.tl-scroll-area::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+.tl-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(2, 206, 255, 0.6);
+  border-radius: 4px;
+}
+.tl-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(2, 206, 255, 0.9);
+}
+
+/* 🔹🔹 Timeline Track Wrapper 🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹 */
+.tl-track-wrapper {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 76px;
+  border-radius: 8px;
+  overflow: visible; /* MUST be visible — tooltip lives here */
+  cursor: crosshair;
+}
+
+/* Inner zoom container — clips thumbnails + handles */
+.tl-zoom-container {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Thumbnails / Filmstrip ──────────────────── */
+.tl-thumbnails {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  display: flex;
+  z-index: 1;
+}
+.tl-thumbnail {
+  flex-shrink: 0;
+  height: 100%;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  /* Filmstrip-style divider */
+  border-right: 1px solid rgba(0, 0, 0, 0.35);
+  /* Smooth reveal when image loads */
+  transition: opacity 0.3s ease, background-image 0.2s ease;
+  opacity: 1;
+  filter: brightness(1.25) contrast(1.1);
+}
+/* Skeleton loading shimmer — visible even before thumbnails load */
+.tl-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.09) 40%,
+    rgba(96, 165, 250, 0.06) 50%,
+    rgba(255, 255, 255, 0.09) 60%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 250% 100%;
+  animation: tl-shimmer 1.8s ease-in-out infinite;
+}
+.tl-selection-box {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-top: 2px solid var(--tl-primary);
+  border-bottom: 2px solid var(--tl-primary);
+  z-index: 3;
+  pointer-events: none;
+  transition: left 0.05s, width 0.05s;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.15);
+}
+
+/* ── Drag Handles ─────────────────────────────── */
+.tl-handle {
+  position: absolute;
+  top: 0;
+  width: var(--tl-handle-width);
+  height: 100%;
+  background: var(--tl-primary);
+  cursor: ew-resize;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  touch-action: none;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.tl-handle:hover,
+.tl-handle:active {
+  background: #93c5fd;
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.5);
+}
+.tl-handle-left  { border-radius: 4px 0 0 4px; }
+.tl-handle-right { border-radius: 0 4px 4px 0; }
+/* Grip dots */
+.tl-handle::after {
+  content: '';
+  width: 2px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 1px;
+  box-shadow: -3px 0 0 rgba(0,0,0,0.25), 3px 0 0 rgba(0,0,0,0.25);
+}
+
+/* ── Playhead ─────────────────────────────────── */
+.tl-playhead {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #ff3b30;
+  z-index: 5;
+  transform: translateX(-50%);
+  pointer-events: none;
+  box-shadow: 0 0 6px rgba(255, 59, 48, 0.4);
+}
+.tl-playhead::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #ff3b30;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
+}
+.tl-playhead-hitbox {
+  position: absolute;
+  top: 0;
+  width: 28px;
+  height: 100%;
+  transform: translateX(-50%);
+  cursor: col-resize;
+  z-index: 6;
+  touch-action: none;
+}
+
+/* ── Hover Tooltip ────────────────────────────── */
+.tl-tooltip {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 0;
+  transform: translateX(-50%);
+  background: rgba(10, 10, 14, 0.94);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+  z-index: 20;
+  white-space: nowrap;
+  color: var(--tl-primary);
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
+}
+.tl-track-wrapper:hover .tl-tooltip {
+  opacity: 1;
+}
+
+/* ── Current Time Display ─────────────────────── */
+.tl-current-time {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--tl-primary);
+  letter-spacing: 0.04em;
+}
+
+/* ── Divider ─────────────────────────────────── */
+.tl-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin: 0;
+}
+
+/* ── Empty State (when no media loaded) ──────── */
+.tl-empty-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 0;
+}
+.tl-empty-state .material-symbols-outlined {
+  font-size: 28px;
+  opacity: 0.3;
+}
+
+/* ── Spinner (unused but kept for future use) ── */
+.tl-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--tl-primary);
+  border-radius: 50%;
+  animation: tl-spin 0.9s linear infinite;
+}
+@keyframes tl-spin { to { transform: rotate(360deg); } }
+
+/* ── Timeline Ruler ───────────────────────────── */
+.tl-ruler {
+  position: absolute;
+  top: -18px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+}
+.tl-tick-major {
+  position: absolute;
+  top: 10px;
+  width: 1px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateX(-50%);
+}
+.tl-tick-label {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-family: 'Courier New', monospace;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+/* ── Multi-Trim Overlays ──────────────────────── */
+.tl-multi-trim-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.58);
+  z-index: 2;
+  pointer-events: none;
+  transition: width 0.05s;
+}
+.tl-overlay-left  { left: 0; }
+.tl-overlay-right { right: 0; }
+
+/* ── Selection Box (border highlight) ────────── */
+@keyframes tl-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Overlays (darken unselected areas) ───────── */
+.tl-overlay {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: transparent;
+  z-index: 2;
+  pointer-events: none;
+  transition: width 0.05s;
+}
+.tl-overlay-left  { left: 0; }
+.tl-overlay-right { right: 0; }
+
+/* ── Selection Box (border highlight) ────────── */
+.tl-selection-box {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-top: 2px solid var(--tl-primary);
+  border-bottom: 2px solid var(--tl-primary);
+  z-index: 3;
+  pointer-events: none;
+  transition: left 0.05s, width 0.05s;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.15);
+  backdrop-filter: brightness(2) contrast(1.2);
+}
+
+/* ── Drag Handles ─────────────────────────────── */
+.tl-handle {
+  position: absolute;
+  top: 0;
+  width: var(--tl-handle-width);
+  height: 100%;
+  background: var(--tl-primary);
+  cursor: ew-resize;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  touch-action: none;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.tl-handle:hover,
+.tl-handle:active {
+  background: #93c5fd;
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.5);
+}
+.tl-handle-left  { border-radius: 4px 0 0 4px; }
+.tl-handle-right { border-radius: 0 4px 4px 0; }
+/* Grip dots */
+.tl-handle::after {
+  content: '';
+  width: 2px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 1px;
+  box-shadow: -3px 0 0 rgba(0,0,0,0.25), 3px 0 0 rgba(0,0,0,0.25);
+}
+
+/* ── Playhead ─────────────────────────────────── */
+.tl-playhead {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #ff3b30;
+  z-index: 5;
+  transform: translateX(-50%);
+  pointer-events: none;
+  box-shadow: 0 0 6px rgba(255, 59, 48, 0.4);
+}
+.tl-playhead::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #ff3b30;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
+}
+.tl-playhead-hitbox {
+  position: absolute;
+  top: 0;
+  width: 28px;
+  height: 100%;
+  transform: translateX(-50%);
+  cursor: col-resize;
+  z-index: 6;
+  touch-action: none;
+}
+
+/* ── Hover Tooltip ────────────────────────────── */
+.tl-tooltip {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 0;
+  transform: translateX(-50%);
+  background: rgba(10, 10, 14, 0.94);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+  z-index: 20;
+  white-space: nowrap;
+  color: var(--tl-primary);
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
+}
+.tl-track-wrapper:hover .tl-tooltip {
+  opacity: 1;
+}
+
+/* ── Current Time Display ─────────────────────── */
+.tl-current-time {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--tl-primary);
+  letter-spacing: 0.04em;
+}
+
+/* ── Divider ─────────────────────────────────── */
+.tl-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin: 0;
+}
+
+/* ── Empty State (when no media loaded) ──────── */
+.tl-empty-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 0;
+}
+.tl-empty-state .material-symbols-outlined {
+  font-size: 28px;
+  opacity: 0.3;
+}
+
+/* ── Spinner (unused but kept for future use) ── */
+.tl-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--tl-primary);
+  border-radius: 50%;
+  animation: tl-spin 0.9s linear infinite;
+}
+@keyframes tl-spin { to { transform: rotate(360deg); } }
+
+/* ── Timeline Ruler ───────────────────────────── */
+.tl-ruler {
+  position: absolute;
+  top: -18px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+}
+.tl-tick-major {
+  position: absolute;
+  top: 10px;
+  width: 1px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateX(-50%);
+}
+.tl-tick-label {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-family: 'Courier New', monospace;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+/* ── Multi-Trim Overlays ──────────────────────── */
+.tl-multi-trim-container {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 3; /* Above overlay-left/right but below handles */
+  pointer-events: none;
+}
+.tl-multi-trim-box {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: transparent;
+  border-left: 1px dashed var(--tl-primary);
+  border-right: 1px dashed var(--tl-primary);
+}
+.tl-multi-trim-box.checked {
+  background: rgba(106, 176, 243, 0.1);
+  border-top: 1px solid var(--tl-primary);
+  border-bottom: 1px solid var(--tl-primary);
+}
+.tl-multi-trim-box.active {
+  background: rgba(106, 176, 243, 0.15);
+  border: 2px solid var(--tl-primary);
+}
+.tl-multi-trim-ghost {
+  opacity: 0.85;
+  filter: grayscale(30%);
+}
+.tl-multi-trim-label {
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(96, 165, 250, 0.4);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  pointer-events: auto;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+.tl-multi-trim-label::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid rgba(96, 165, 250, 0.4);
+  transition: all 0.2s ease;
+}
+.tl-multi-trim-label.checked {
+  background: var(--tl-primary);
+  color: #ffffff;
+}
+.tl-multi-trim-label.checked::after {
+  border-top: 4px solid var(--tl-primary);
+}
+.tl-multi-trim-label.active {
+  background: var(--tl-primary);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
+  transform: translateX(-50%) scale(1.05);
+}
+.tl-multi-trim-label.active::after {
+  border-top: 4px solid var(--tl-primary);
+}
