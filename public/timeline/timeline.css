@@ -104,20 +104,25 @@
   position: relative;
 }
 
-/* Custom scrollbar for scroll area */
+/* Custom scrollbar for scroll area - sleek thin 4px matching Audio Trimmer */
 .tl-scroll-area::-webkit-scrollbar {
-  height: 6px;
+  height: 4px;
 }
 .tl-scroll-area::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
 }
 .tl-scroll-area::-webkit-scrollbar-thumb {
-  background: rgba(2, 206, 255, 0.6);
-  border-radius: 4px;
+  background: rgba(96, 165, 250, 0.45);
+  border-radius: 2px;
 }
 .tl-scroll-area::-webkit-scrollbar-thumb:hover {
-  background: rgba(2, 206, 255, 0.9);
+  background: rgba(96, 165, 250, 0.85);
+}
+
+.tl-scroll-area {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(96, 165, 250, 0.45) rgba(0, 0, 0, 0.5);
 }
 
 /* 🔹🔹 Timeline Track Wrapper 🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹🔹 */
@@ -437,6 +442,16 @@
   box-shadow: -3px 0 0 rgba(0,0,0,0.25), 3px 0 0 rgba(0,0,0,0.25);
 }
 
+/* Purple styling for Clips */
+.tl-handle.is-clip { background: #9b59b6; }
+.tl-handle.is-clip:hover, .tl-handle.is-clip:active { background: #b86ed9; box-shadow: 0 0 12px rgba(155, 89, 182, 0.5); }
+.tl-selection-box.is-clip { border-top-color: #9b59b6; border-bottom-color: #9b59b6; box-shadow: 0 0 8px rgba(155, 89, 182, 0.15); }
+
+/* Purple styling for AI List */
+.tl-handle.is-ai { background: #640aff; }
+.tl-handle.is-ai:hover, .tl-handle.is-ai:active { background: #8238ff; box-shadow: 0 0 12px rgba(100, 10, 255, 0.5); }
+.tl-selection-box.is-ai { border-top-color: #640aff; border-bottom-color: #640aff; box-shadow: 0 0 8px rgba(100, 10, 255, 0.15); }
+
 /* ── Playhead ─────────────────────────────────── */
 .tl-playhead {
   position: absolute;
@@ -595,7 +610,7 @@
 }
 .tl-multi-trim-box.active {
   background: rgba(106, 176, 243, 0.15);
-  border: 2px solid var(--tl-primary);
+  border: none;
 }
 .tl-multi-trim-ghost {
   opacity: 0.85;
@@ -645,3 +660,20 @@
 .tl-multi-trim-label.active::after {
   border-top: 4px solid var(--tl-primary);
 }
+
+/* Purple scrollbar for Clip List mode */
+.tl-scroll-area.is-clip::-webkit-scrollbar-thumb {
+  background: rgba(155, 89, 182, 0.6);
+}
+.tl-scroll-area.is-clip::-webkit-scrollbar-thumb:hover {
+  background: rgba(155, 89, 182, 0.9);
+}
+
+/* Purple scrollbar for AI List mode */
+.tl-scroll-area.is-ai::-webkit-scrollbar-thumb {
+  background: rgba(100, 10, 255, 0.6);
+}
+.tl-scroll-area.is-ai::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 10, 255, 0.9);
+}
+

@@ -5,9 +5,13 @@ echo.
 echo  Stopping MediaFetch server...
 echo.
 
-for /f "tokens=5" %%a in ('netstat -aon ^| findstr :3000 ^| findstr LISTENING 2^>nul') do (
+for /f "tokens=5" %%a in ('netstat -aon ^| findstr ":8080 " ^| findstr LISTENING 2^>nul') do (
     taskkill /F /PID %%a >nul 2>&1
-    echo  [OK] Process %%a stopped
+    echo  [OK] Process %%a on port 8080 stopped
+)
+for /f "tokens=5" %%a in ('netstat -aon ^| findstr ":3000 " ^| findstr LISTENING 2^>nul') do (
+    taskkill /F /PID %%a >nul 2>&1
+    echo  [OK] Process %%a on port 3000 stopped
 )
 
 echo.

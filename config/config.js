@@ -13,22 +13,41 @@ require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 const config = {
   // Server Configuration
   server: {
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 8035,
     host: process.env.HOST || 'localhost',
     env: process.env.NODE_ENV || 'development',
     corsEnabled: process.env.CORS_ENABLED !== 'false'
   },
 
   // Paths
-  paths: {
-    root: path.join(__dirname, '..'),
-    downloads: process.env.DOWNLOAD_DIR || path.join(__dirname, '..', 'downloads'),
-    clips: path.join(__dirname, '..', 'downloads', 'clips'), // Subfolder for heatmap clips
-    trim: path.join(__dirname, '..', 'downloads', 'trim'), // Subfolder for remote trimmed video
-    cache: path.join(__dirname, '..', 'cache'),              // For sprites, thumbnails, temp files
-    logs: path.join(__dirname, '..', 'logs'),
-    public: path.join(__dirname, '..', 'public')
-  },
+  // process.pkg      = bundled via pkg (FytX.exe CLI mode)
+  // IS_ELECTRON=true = running inside packaged Electron portable
+  // PORTABLE_EXECUTABLE_DIR is set by electron-builder portable target
+  //   to the folder containing the .exe — use it as the writable root.
+  paths: (() => {
+    let writableRoot;
+    if (process.pkg) {
+      // pkg mode: writable dir is next to the exe
+      writableRoot = path.dirname(process.execPath);
+    } else if (process.env.IS_ELECTRON === 'true') {
+      // Electron portable mode: use PORTABLE_EXECUTABLE_DIR (set by electron-builder)
+      // or fall back to process.cwd() which is the folder the .exe lives in
+      writableRoot = process.env.PORTABLE_EXECUTABLE_DIR || process.cwd();
+    } else {
+      // Dev mode (npm run dev / npm run app:dev)
+      writableRoot = path.join(__dirname, '..');
+    }
+    return {
+      root:      writableRoot,
+      downloads: path.join(writableRoot, 'downloads'),
+      clips:     path.join(writableRoot, 'downloads', 'clips'),
+      trim:      path.join(writableRoot, 'downloads', 'trim'),
+      merge:     path.join(writableRoot, 'downloads', 'merge'),
+      cache:     path.join(writableRoot, 'cache'),
+      logs:      path.join(writableRoot, 'logs'),
+      public:    path.join(__dirname, '..', 'public')
+    };
+  })(),
 
   // yt-dlp Configuration
   ytdlp: {

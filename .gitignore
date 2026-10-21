@@ -23,19 +23,31 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 
-# Environment
+# Environment & License Secrets
 .env
 .env.local
 .env.*.local
+*.pem
+private.pem
+keygen.js
+license-key.txt
+cookies.txt
 
-# Build
+# Build & Dist
 dist/
+dist-electron/
+dist-pkg/
+dist-obfuscated/
 build/
 
-# Temporary
+# Temporary & Cache
 temp/
 tmp/
 *.tmp
+cache/
+stt_cache/
+logs/
+scratch/
 
 # Portable Tools (downloaded by START.bat)
 tools/

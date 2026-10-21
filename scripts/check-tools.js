@@ -9,11 +9,12 @@
 
 const { execSync } = require('child_process');
 const path = require('path');
+const toolPaths = require('../utils/toolPaths');
 
 const tools = [
   {
     name: 'Node.js',
-    command: 'node',
+    command: toolPaths.node,
     versionFlag: '--version',
     minVersion: '14.0.0'
   },
@@ -32,24 +33,25 @@ const tools = [
   },
   {
     name: 'yt-dlp',
-    command: 'yt-dlp',
+    command: toolPaths.ytdlp,
     versionFlag: '--version'
   },
   {
     name: 'ffmpeg',
-    command: 'ffmpeg',
+    command: toolPaths.ffmpeg,
     versionFlag: '-version'
   },
   {
     name: 'ffprobe',
-    command: 'ffprobe',
+    command: toolPaths.ffprobe,
     versionFlag: '-version'
   }
 ];
 
 function checkToolVersion(command, versionFlag) {
   try {
-    const output = execSync(`${command} ${versionFlag}`, { 
+    const cmdStr = command.includes(' ') && !command.startsWith('"') ? `"${command}"` : command;
+    const output = execSync(`${cmdStr} ${versionFlag}`, { 
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe']
     }).trim();
